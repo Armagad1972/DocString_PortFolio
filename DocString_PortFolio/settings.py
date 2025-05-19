@@ -35,7 +35,12 @@ INSTALLED_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
+    'django.contrib.admin',
     'django.contrib.staticfiles',
+    'tailwind',
+    'theme',
+    'widget_tweaks',
+    'accounts.apps.AccountsConfig'
 ]
 
 MIDDLEWARE = [
@@ -116,7 +121,15 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 
+#Auth
+AUTH_USER_MODEL = "accounts.JadUser"
+LOGIN_REDIRECT_URL = '/'
+LOGOUT_REDIRECT_URL = '/'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+TAILWIND_APP_NAME = 'theme'
+NPM_BIN_PATH = 'c:/Program Files/nodejs/npm.cmd'
