@@ -1,7 +1,9 @@
+from django.conf import settings
 from django.contrib.auth import get_user_model
-from django.contrib.auth.models import BaseUserManager, AbstractBaseUser
+from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
 from django.db import models
-
+from django.utils.text import slugify
+from iso3166 import countries
 
 
 
@@ -43,7 +45,7 @@ class JadUserManager(BaseUserManager):
         return user
 
 
-class JadUser(AbstractBaseUser):
+class JadUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(
         verbose_name="Adresse Mail",
         max_length=255,
@@ -53,6 +55,12 @@ class JadUser(AbstractBaseUser):
     lname = models.CharField(verbose_name="Nom", max_length=255)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    is_staff = models.BooleanField(
+        verbose_name="Statut staff",
+        default=False,
+        help_text="Détermine si l'utilisateur peut se connecter à l'interface d'administration."
+    )
+
 
     class Meta:
         verbose_name = "Utilisateur"
@@ -62,15 +70,43 @@ class JadUser(AbstractBaseUser):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['fname', 'lname']
 
-    def has_perm(self, perm, obj=None):
-        return True
-
-    def has_module_perms(self, app_label):
-        return True
-
-
-    @property
-    def is_staff(self):
-        return self.is_admin  # Les administrateurs sont considérés comme du personnel
-
 User = get_user_model()
+
+
+class Societe(models.Model):
+    nom = models.CharField(max_length=255)
+    adresse = models.CharField(max_length=255)
+    ville = models.CharField(max_length=255)
+    pays = models.CharField(max_length=2, choices=[(c.alpha2.lower(), c.name) for c in countries])
+    users = models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name="utilisateurs", on_delete=models.CASCADE, related_name="societes")
+
+    class Meta:
+        verbose_name = "Société"
+        verbose_name_plural = "Sociétés"
+
+class Magasin(models.Model):
+    nom = models.CharField(max_length=255)
+    adresse = models.CharField(max_length=255)
+    ville = models.CharField(max_length=255)
+    pays = models.CharField(max_length=2, choices=[(c.alpha2.lower(), c.name) for c in countries])
+    societe = models.ForeignKey(to=Societe, verbose_name="société", on_delete=models.CASCADE, related_name="magasins")
+    users = models.ManyToManyField(to=settings.AUTH_USER_MODEL,verbose_name="utilisateurs", related_name="magasins", blank=True)
+
+    class Meta:
+        verbose_name = "Magasin"
+        verbose_name_plural = "Magasins"
+
+
+class Produit(models.Model):
+    nom = models.CharField(max_length=255, help_text="Nom du produit")
+    slug=models.SlugField(max_length=255)
+    CreationDate = models.DateTimeField(auto_now_add=True)
+    UpdateDate = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = "Produit"
+        verbose_name_plural = "Produits"
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.nom)
