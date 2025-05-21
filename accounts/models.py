@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, PermissionsMixin
+from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.text import slugify
 from iso3166 import countries
@@ -70,7 +71,7 @@ class JadUser(AbstractBaseUser, PermissionsMixin):
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ['fname', 'lname']
 
-User = get_user_model()
+    User = settings.AUTH_USER_MODEL
 
 
 class Societe(models.Model):
@@ -110,3 +111,33 @@ class Produit(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.nom)
+
+class Stock(models.Model):
+    produit = models.ForeignKey(to=Produit, verbose_name="produit", on_delete=models.RESTRICT, related_name="stock")
+    magasin = models.ForeignKey(to=Magasin, verbose_name="magasin", on_delete=models.RESTRICT, related_name="stock")
+    quantite = models.IntegerField(
+        verbose_name="quantité",
+        validators=[MinValueValidator(0)]
+    )
+    seuil = models.IntegerField(
+        verbose_name="seuil",
+        default=0,
+        validators=[MinValueValidator(0)]
+    )
+    class Meta:
+        verbose_name = "Stock"
+        verbose_name_plural = "Stocks"
+        unique_together = ['produit', 'magasin']
+
+class Mouvements(models.Model):
+    produit = models.ForeignKey(to=Produit, verbose_name="produit", on_delete=models.RESTRICT, related_name="mouvements")
+    magasin_in = models.ForeignKey(to=Magasin, verbose_name="magasin", on_delete=models.RESTRICT, related_name="mouvements",null=True, blank=True)
+    magasin_out = models.ForeignKey(to=Magasin, verbose_name="magasin", on_delete=models.RESTRICT, related_name="mouvements_out", null=True, blank=True)
+    quantite = models.IntegerField(
+        verbose_name="quantité",
+        validators=[MinValueValidator(0)]
+    )
+    date = models.DateTimeField(auto_now_add=True)
+    class Meta:
+        verbose_name = "Mouvement"
+        verbose_name_plural = "Mouvements"
