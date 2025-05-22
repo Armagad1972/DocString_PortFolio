@@ -73,16 +73,6 @@ class JadUser(AbstractBaseUser, PermissionsMixin):
     def __str__(self):
         return f"{self.fname} {self.lname}"
 
-    def has_perm(self, perm, obj=None):
-        return self.is_admin
-
-    def has_module_perms(self, app_label):
-        return True
-
-    @property
-    def is_superuser(self):
-        return self.is_admin
-
 
 class Societe(models.Model):
     nom = models.CharField(max_length=255)
@@ -113,6 +103,9 @@ class Magasin(models.Model):
         verbose_name = "Magasin"
         verbose_name_plural = "Magasins"
 
+    def __str__(self):
+        return self.nom
+
 
 class Produit(models.Model):
     nom = models.CharField(max_length=255, help_text="Nom du produit")
@@ -123,6 +116,9 @@ class Produit(models.Model):
     class Meta:
         verbose_name = "Produit"
         verbose_name_plural = "Produits"
+
+    def __str__(self):
+        return self.nom
 
     def save(self, *args, **kwargs):
         if not self.slug:
@@ -141,6 +137,9 @@ class Stock(models.Model):
         default=0,
         validators=[MinValueValidator(0)]
     )
+
+    def __str__(self):
+        return f"{self.produit} - {self.magasin}-{self.quantite}"
 
     class Meta:
         verbose_name = "Stock"
