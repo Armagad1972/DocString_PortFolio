@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from import_export.formats.base_formats import CSV, XLSX
 
 import environ
 
@@ -122,6 +123,12 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'static'
+
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+IMPORT_FORMATS = [CSV, XLSX]
+EXPORT_FORMATS = [CSV, XLSX]
+
 # Auth
 AUTH_USER_MODEL = "accounts.JadUser"
 LOGIN_REDIRECT_URL = '/'

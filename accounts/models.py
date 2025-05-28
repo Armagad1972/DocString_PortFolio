@@ -109,7 +109,7 @@ class Magasin(models.Model):
 
 class Produit(models.Model):
     nom = models.CharField(max_length=255, help_text="Nom du produit")
-    slug = models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, blank=True, null=True)
     CreationDate = models.DateTimeField(auto_now_add=True)
     UpdateDate = models.DateTimeField(auto_now=True)
 
@@ -123,6 +123,7 @@ class Produit(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.nom)
+            super().save(*args, **kwargs)
 
 
 class Stock(models.Model):
