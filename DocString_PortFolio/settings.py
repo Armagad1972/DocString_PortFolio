@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.staticfiles',
     'django_cleanup.apps.CleanupConfig',
+    'import_export',
     'tailwind',
     'theme',
     'widget_tweaks',
@@ -120,7 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
-
+STATIC_ROOT = BASE_DIR / 'static'
 # Auth
 AUTH_USER_MODEL = "accounts.JadUser"
 LOGIN_REDIRECT_URL = '/'

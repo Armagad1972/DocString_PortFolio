@@ -1,166 +1,167 @@
 {% extends 'landing.html' %}
+{% load i18n %}
 {% load static tailwind_tags %}
 {% load widget_tweaks %}
-{% block content %}
 
 
 {#<main id="page-content" class="flex max-w-full flex-auto flex-col">#}
-    <div class="flex min-h-dvh w-full">
-      <!-- Sign In Section -->
-      <div
-        class="flex w-full flex-col justify-between gap-6 overflow-hidden bg-stone-100 p-6 lg:w-2/5 dark:bg-neutral-900 dark:text-gray-100"
-      >
+{% block content %}
+    <!-- Sign In Section -->
+    <div
+            class="flex w-full flex-col justify-between gap-6 overflow-hidden bg-stone-100 p-6 lg:w-2/5 dark:bg-neutral-900 dark:text-gray-100"
+    >
         <div class="flex-none text-center lg:text-left">
-          <div class="inline-flex items-center gap-1.5 text-sm font-semibold">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 73 49"
-              class="size-7"
-            >
-              <path
-                fill="#38bdf8"
-                d="M46.868 24c0 12.426-10.074 22.5-22.5 22.5-12.427 0-22.5-10.074-22.5-22.5S11.94 1.5 24.368 1.5c12.426 0 22.5 10.074 22.5 22.5Z"
-              />
-              <path
-                fill="#a855f7"
-                d="M71.132 24c0 12.426-9.975 22.5-22.28 22.5-12.304 0-22.278-10.074-22.278-22.5S36.547 1.5 48.852 1.5c12.304 0 22.28 10.074 22.28 22.5Z"
-              />
-              <path
-                fill="#6b21a8"
-                d="M36.67 42.842C42.81 38.824 46.868 31.886 46.868 24c0-7.886-4.057-14.824-10.198-18.841A22.537 22.537 0 0 0 26.573 24 22.537 22.537 0 0 0 36.67 42.842Z"
-              />
-            </svg>
-            <span>Circles AI</span>
-          </div>
+            <div class="inline-flex items-center gap-1.5 text-sm font-semibold">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 73 49"
+                        class="size-7"
+                >
+                    <path
+                            fill="#38bdf8"
+                            d="M46.868 24c0 12.426-10.074 22.5-22.5 22.5-12.427 0-22.5-10.074-22.5-22.5S11.94 1.5 24.368 1.5c12.426 0 22.5 10.074 22.5 22.5Z"
+                    />
+                    <path
+                            fill="#a855f7"
+                            d="M71.132 24c0 12.426-9.975 22.5-22.28 22.5-12.304 0-22.278-10.074-22.278-22.5S36.547 1.5 48.852 1.5c12.304 0 22.28 10.074 22.28 22.5Z"
+                    />
+                    <path
+                            fill="#6b21a8"
+                            d="M36.67 42.842C42.81 38.824 46.868 31.886 46.868 24c0-7.886-4.057-14.824-10.198-18.841A22.537 22.537 0 0 0 26.573 24 22.537 22.537 0 0 0 36.67 42.842Z"
+                    />
+                </svg>
+                <span>Circles AI</span>
+            </div>
         </div>
         <div
-          class="mx-auto flex w-full max-w-sm grow flex-col justify-center lg:py-28"
+                class="mx-auto flex w-full max-w-sm grow flex-col justify-center lg:py-28"
         >
-          <!-- Header -->
-          <header class="mb-8 text-center">
-            <h1 class="mb-2 text-xl font-extrabold">
-              Sign in to your dashboard
-            </h1>
-            <h2
-              class="text-sm font-medium text-gray-500 dark:text-gray-400"
-            >
-              Don't have an account yet?
-              <a
-                href="javascript:void(0)"
-                class="font-medium text-indigo-600 hover:text-indigo-400 dark:text-indigo-400 dark:hover:text-indigo-300"
-                >Sign up</a
-              >
-            </h2>
-          </header>
-          <!-- END Header -->
+            <!-- Header -->
+            <header class="mb-8 text-center">
+                <h1 class="mb-2 text-xl font-extrabold">
+                    Sign in to your dashboard
+                </h1>
+                <h2
+                        class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                >
+                    Don't have an account yet?
+                    <form id="signup-form" method="post" action="{% url 'signup' %}">
+                        {% csrf_token %}
+                        <button
+                                type="submit"
+                                role="menuitem"
+                                class="group flex w-full items-center gap-2.5 rounded-lg px-2.5 text-left text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
+                        >
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                 stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                 stroke-linejoin="round" aria-hidden="true"
+                                 class="lucide lucide-user-plus inline-block size-6">
+                                <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <line x1="19" x2="19" y1="8" y2="14"/>
+                                <line x1="22" x2="16" y1="11" y2="11"/>
+                            </svg>
 
-          <!-- Sign in with email -->
-{#          <form onsubmit="return false;">#}
-{#            <div class="flex flex-col gap-5">#}
-{#              <div class="space-y-1">#}
-{#                <label for="email" class="inline-block text-sm font-medium"#}
-{#                  >Email</label#}
-{#                >#}
-{#                <input#}
-{#                  type="email"#}
-{#                  id="email"#}
-{#                  name="email"#}
-{#                  class="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-indigo-500 focus:ring-3 focus:ring-indigo-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-indigo-500"#}
-{#                />#}
-{#              </div>#}
-{#              <div class="space-y-1">#}
-{#                <label for="password" class="inline-block text-sm font-medium"#}
-{#                  >Password</label#}
-{#                >#}
-{#                <input#}
-{#                  type="password"#}
-{#                  id="password"#}
-{#                  name="password"#}
-{#                  class="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-indigo-500 focus:ring-3 focus:ring-indigo-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-indigo-500"#}
-{#                />#}
-{#              </div>#}
-{#              <div>#}
-{#                <div class="flex items-center justify-between gap-2">#}
-{#                  <label class="flex items-center">#}
-{#                    <input#}
-{#                      type="checkbox"#}
-{#                      id="remember_me"#}
-{#                      name="remember_me"#}
-{#                      class="size-4 rounded-sm border border-gray-200 text-indigo-500 focus:border-indigo-500 focus:ring-3 focus:ring-indigo-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:ring-offset-gray-900 dark:checked:border-transparent dark:checked:bg-indigo-500 dark:focus:border-indigo-500 dark:focus:ring-offset-gray-900"#}
-{#                    />#}
-{#                    <span class="ml-2 text-sm">Remember me</span>#}
-{#                  </label>#}
-{#                  <a#}
-{#                    href="javascript:void(0)"#}
-{#                    class="inline-block text-sm font-medium text-indigo-600 hover:text-indigo-400 dark:text-indigo-400 dark:hover:text-indigo-300"#}
-{#                    >Forgot Password?</a#}
-{#                  >#}
-{#                </div>#}
-{#              </div>#}
-{#              <div>#}
-{#                <button#}
-{#                  type="submit"#}
-{#                  class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-indigo-700 bg-indigo-700 px-6 py-3 leading-6 font-semibold text-white hover:border-indigo-600 hover:bg-indigo-600 hover:text-white focus:ring-3 focus:ring-indigo-400/50 active:border-indigo-700 active:bg-indigo-700 dark:focus:ring-indigo-400/90"#}
-{#                >#}
-{#                  <span>Sign in</span>#}
-{#                </button>#}
-{#              </div>#}
-{#            </div>#}
-{#          </form>#}
-           <form method="post">
-                            {% csrf_token %}
-                            {% if form.errors %}
-                                {% for field in form %}
-                                    {% for error in field.errors %}
-                                        <div class="form-control text-error">
-                                            <strong>{{ error }}</strong>
-                                        </div>
-                                    {% endfor %}
-                                {% endfor %}
-                            {% endif %}
-                            {% for error in form.non_field_errors %}
-                                <p class="text-danger">{{ error }}</p>
-                            {% endfor %}
-                            <!-- Sign in with email -->
-                            <div class="space-y-1">
-                                <label for="email" class="inline-block text-sm font-medium">Email</label>
-                                {% render_field form.username class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/50 dark:border-gray-700/75 dark:bg-blue-900 dark:placeholder-gray-400 dark:focus:border-blue-500" placeholder="user" %}
+                            {% translate 'SignUp' %}</button>
+                    </form>
+                </h2>
+            </header>
+            <!-- END Header -->
+
+            <!-- Sign in with email -->
+            {#          <form onsubmit="return false;">#}
+            {#            <div class="flex flex-col gap-5">#}
+            {#              <div class="space-y-1">#}
+            {#                <label for="email" class="inline-block text-sm font-medium"#}
+            {#                  >Email</label#}
+            {#                >#}
+            {#                <input#}
+            {#                  type="email"#}
+            {#                  id="email"#}
+            {#                  name="email"#}
+            {#                  class="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-indigo-500 focus:ring-3 focus:ring-indigo-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-indigo-500"#}
+            {#                />#}
+            {#              </div>#}
+            {#              <div class="space-y-1">#}
+            {#                <label for="password" class="inline-block text-sm font-medium"#}
+            {#                  >Password</label#}
+            {#                >#}
+            {#                <input#}
+            {#                  type="password"#}
+            {#                  id="password"#}
+            {#                  name="password"#}
+            {#                  class="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-indigo-500 focus:ring-3 focus:ring-indigo-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-indigo-500"#}
+            {#                />#}
+            {#              </div>#}
+            {#              <div>#}
+            {#                <div class="flex items-center justify-between gap-2">#}
+            {#                  <label class="flex items-center">#}
+            {#                    <input#}
+            {#                      type="checkbox"#}
+            {#                      id="remember_me"#}
+            {#                      name="remember_me"#}
+            {#                      class="size-4 rounded-sm border border-gray-200 text-indigo-500 focus:border-indigo-500 focus:ring-3 focus:ring-indigo-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:ring-offset-gray-900 dark:checked:border-transparent dark:checked:bg-indigo-500 dark:focus:border-indigo-500 dark:focus:ring-offset-gray-900"#}
+            {#                    />#}
+            {#                    <span class="ml-2 text-sm">Remember me</span>#}
+            {#                  </label>#}
+            {#                  <a#}
+            {#                    href="javascript:void(0)"#}
+            {#                    class="inline-block text-sm font-medium text-indigo-600 hover:text-indigo-400 dark:text-indigo-400 dark:hover:text-indigo-300"#}
+            {#                    >Forgot Password?</a#}
+            {#                  >#}
+            {#                </div>#}
+            {#              </div>#}
+            {#              <div>#}
+            {#                <button#}
+            {#                  type="submit"#}
+            {#                  class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-indigo-700 bg-indigo-700 px-6 py-3 leading-6 font-semibold text-white hover:border-indigo-600 hover:bg-indigo-600 hover:text-white focus:ring-3 focus:ring-indigo-400/50 active:border-indigo-700 active:bg-indigo-700 dark:focus:ring-indigo-400/90"#}
+            {#                >#}
+            {#                  <span>Sign in</span>#}
+            {#                </button>#}
+            {#              </div>#}
+            {#            </div>#}
+            {#          </form>#}
+            <form method="post">
+                {% csrf_token %}
+                {% if form.errors %}
+                    {% for field in form %}
+                        {% for error in field.errors %}
+                            <div class="form-control text-error">
+                                <strong>{{ error }}</strong>
                             </div>
-                            <div class="space-y-1">
-                                <label for="password" class="inline-block text-sm font-medium">Password</label>
-                                {% render_field form.password class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/50 dark:border-gray-700/75 dark:bg-blue-900 dark:placeholder-gray-400 dark:focus:border-blue-500" placeholder="Mot de passe" %}
-                            </div>
-                            <button type="submit"
-                                    class="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-blue-700 bg-blue-700 px-6 py-3 leading-6 font-semibold text-white hover:border-blue-600 hover:bg-blue-600 hover:text-white focus:ring-3 focus:ring-blue-400/50 active:border-blue-700 active:bg-blue-700 dark:focus:ring-blue-400/90">
-                                Log In
-                            </button>
-                        </form>
-          <!-- END Sign in with email -->
+                        {% endfor %}
+                    {% endfor %}
+                {% endif %}
+                {% for error in form.non_field_errors %}
+                    <p class="text-danger">{{ error }}</p>
+                {% endfor %}
+                <!-- Sign in with email -->
+                <div class="space-y-1">
+                    <label for="email" class="inline-block text-sm font-medium">{% translate 'User' %}</label>
+                    {% render_field form.username class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/50 dark:border-gray-700/75 dark:bg-blue-900 dark:placeholder-gray-400 dark:focus:border-blue-500" placeholder="user" %}
+                </div>
+                <div class="space-y-1">
+                    <label for="password"
+                           class="inline-block text-sm font-medium">{% translate "Password" %}</label>
+                    {% render_field form.password class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/50 dark:border-gray-700/75 dark:bg-blue-900 dark:placeholder-gray-400 dark:focus:border-blue-500" placeholder="Mot de passe" %}
+                </div>
+                <button type="submit"
+                        class="mt-2 inline-flex w-full items-center justify-center gap-2 rounded-lg border border-blue-700 bg-blue-700 px-6 py-3 leading-6 font-semibold text-white hover:border-blue-600 hover:bg-blue-600 hover:text-white focus:ring-3 focus:ring-blue-400/50 active:border-blue-700 active:bg-blue-700 dark:focus:ring-blue-400/90">
+                    Log In
+                </button>
+            </form>
+            <!-- END Sign in with email -->
         </div>
         <div
-          class="flex-none text-center text-xs text-gray-500 lg:text-left dark:text-gray-400"
+                class="flex-none text-center text-xs text-gray-500 lg:text-left dark:text-gray-400"
         >
-          <span class="font-medium">Circles AI &copy;</span>
-          Built with love
+            <span class="font-medium">Circles AI &copy;</span>
+            Built with love
         </div>
-      </div>
-      <!-- END Sign In Section -->
-
-      <!-- Side Image -->
-      <div class="hidden w-3/5 bg-white p-6 lg:block dark:bg-gray-900">
-        <div class="relative h-full w-full">
-          <div
-            class="absolute inset-0 z-1 rounded-3xl bg-linear-to-br from-purple-600/90 to-sky-600/90 mix-blend-overlay"
-          ></div>
-          <img
-            src="{% static 'img/Laptop_Kpi.jpeg ' %}"
-            class="absolute inset-0 h-full w-full rounded-3xl object-cover"
-            alt="Sign in cover image"
-          />
-        </div>
-      </div>
-      <!-- END Side Image -->
     </div>
-{#  </main>#}
+    <!-- END Sign In Section -->
 {% endblock %}
+<!-- Side Image -->
+
+{#  </main>#}

@@ -87,7 +87,7 @@ class Societe(models.Model):
         verbose_name_plural = "Sociétés"
 
     def __str__(self):
-        return self.nom
+        return f"{self.nom} {self.ville}"
 
 
 class Magasin(models.Model):
