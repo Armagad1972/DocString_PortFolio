@@ -11,22 +11,26 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+from import_export.formats.base_formats import CSV, XLSX
 
+import environ
+
+env = environ.Env()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+environ.Env.read_env(str(BASE_DIR / ".env"))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-sy*xth8s(gp-+*1b6#h8748k+(7hy6jo5xv!^6+oq)w!r)uy-9'
+SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -37,6 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.admin',
     'django.contrib.staticfiles',
+    'django_cleanup.apps.CleanupConfig',
+    'import_export',
     'tailwind',
     'theme',
     'widget_tweaks',
@@ -73,7 +79,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'DocString_PortFolio.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
@@ -83,7 +88,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
@@ -103,7 +107,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/5.2/topics/i18n/
 
@@ -115,13 +118,18 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+STATIC_ROOT = BASE_DIR / 'static'
 
-#Auth
+IMPORT_EXPORT_USE_TRANSACTIONS = True
+
+IMPORT_FORMATS = [CSV, XLSX]
+EXPORT_FORMATS = [CSV, XLSX]
+
+# Auth
 AUTH_USER_MODEL = "accounts.JadUser"
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
@@ -131,5 +139,5 @@ LOGOUT_REDIRECT_URL = '/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-TAILWIND_APP_NAME = 'theme'
-NPM_BIN_PATH = 'c:/Program Files/nodejs/npm.cmd'
+TAILWIND_APP_NAME = env('TAILWIND_APP_NAME')
+NPM_BIN_PATH = env('NPM_BIN_PATH')

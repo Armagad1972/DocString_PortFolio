@@ -1,0 +1,82 @@
+{% extends 'landing.html' %}
+{% load i18n %}
+{% load static tailwind_tags %}
+{% load widget_tweaks %}
+{% block content %}
+
+
+
+    <!-- Pages: Sign Up: With Image Alternate -->
+    <!-- Page Container -->
+    {#    <div#}
+    {#            id="page-container"#}
+    {#            class="mx-auto flex min-h-dvh w-full max-w-10xl min-w-80 flex-col bg-gray-100 dark:bg-gray-900 dark:text-gray-100"#}
+    {#    >#}
+    {#        <!-- Page Content -->#}
+    {#        <main id="page-content" class="flex max-w-full flex-auto flex-col">#}
+    {#            <div class="flex min-h-dvh w-full">#}
+    <!-- Sign up Section -->
+
+    <!-- Header -->
+    <header class="mb-8 text-center">
+        <h1 class="mb-2 text-xl font-extrabold">Create a new account</h1>
+        <h2
+                class="text-sm font-medium text-gray-500 dark:text-gray-400"
+        >
+            Already have an account?
+            <form id="login-form" method="get" action="{% url 'login' %}">
+                {% csrf_token %}
+                <button
+                        type="submit"
+                        role="menuitem"
+                        class="group flex w-full items-center gap-2.5 rounded-lg px-2.5 text-left text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                         stroke-linejoin="round" aria-hidden="true"
+                         class="lucide lucide-log-in inline-block size-6">
+                        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/>
+                        <polyline points="10 17 15 12 10 7"/>
+                        <line x1="15" x2="3" y1="12" y2="12"/>
+                    </svg>
+
+                    {% translate 'Log in' %}
+                </button>
+            </form>
+        </h2>
+    </header>
+    <!-- END Header -->
+
+    <!-- Sign up with email -->
+    <form id="toto" action="#" method="POST" class="space-y-6">
+        {% csrf_token %}
+        {% if form.errors %}
+            {% for field in form %}
+                {% for error in field.errors %}
+                    <div class="form-control text-error">
+                        <strong>{{ error }}</strong>
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        {% for error in form.non_field_errors %}
+            <p class="text-danger">{{ error }}</p>
+        {% endfor %}
+        <label for="email-address" class="hidden">Mail</label>
+        {% render_field form.email class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-blue-500" placeholder="MAIL" %}
+        <label for="fname" class="hidden">Prénom</label>
+        {% render_field form.fname class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-blue-500" placeholder="Prénom" %}
+        <label for="lname" class="hidden">Nom</label>
+        {% render_field form.lname class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-blue-500" placeholder="Nom" %}
+        <label for="password1" class="hidden">Mot de passe</label>
+        {% render_field form.password1 class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-blue-500" placeholder="Mot de passe" %}
+        <label for="password2" class="hidden">Confirmation</label>
+        {% render_field form.password2 class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-blue-500 focus:ring-3 focus:ring-blue-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-blue-500" placeholder="Confirmer votre mot de passe" %}
+        <button type="submit"
+                class="inline-flex w-full items-center justify-center gap-2 rounded-lg border border-blue-700 bg-blue-700 px-6 py-3 leading-6 font-semibold text-white hover:border-blue-600 hover:bg-blue-600 hover:text-white focus:ring-3 focus:ring-blue-400/50 active:border-blue-700 active:bg-blue-700 dark:focus:ring-blue-400/90">
+            <span>{% translate 'Create' %}</span>
+        </button>
+    </form>
+    <!-- END Sign up with email -->
+
+{% endblock %}
