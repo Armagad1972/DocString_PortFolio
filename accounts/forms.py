@@ -6,5 +6,5 @@ from accounts.models import JadUser
 
 class UserRegistrationForm(UserCreationForm):
     class Meta:
-        model= JadUser
-        fields = ['email','fname','lname']
+        model = JadUser
+        fields = ['email', 'fname', 'lname']

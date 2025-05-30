@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+{% load widget_tweaks %}
+{% block content %}
+    <h1>Les sociétés</h1>
+
+    {% for societe in societes %}
+        <h2> {{ societe.nom }} </h2>
+        <p> {{ societe.ville }} </p>
+    {% endfor %}
+{% endblock %}

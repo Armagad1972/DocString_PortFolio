@@ -476,17 +476,13 @@
                                         role="menuitem"
                                         class="group flex w-full items-center gap-2.5 rounded-lg px-2.5 text-left text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
                                 >
-                                    <svg
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 16 16"
-                                            fill="currentColor"
-                                            class="hi-micro hi-arrow-left-start-on-rectangle inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                                    >
-                                        <path
-                                                fill-rule="evenodd"
-                                                d="M14 4.75A2.75 2.75 0 0 0 11.25 2h-3A2.75 2.75 0 0 0 5.5 4.75v.5a.75.75 0 0 0 1.5 0v-.5c0-.69.56-1.25 1.25-1.25h3c.69 0 1.25.56 1.25 1.25v6.5c0 .69-.56 1.25-1.25 1.25h-3c-.69 0-1.25-.56-1.25-1.25v-.5a.75.75 0 0 0-1.5 0v.5A2.75 2.75 0 0 0 8.25 14h3A2.75 2.75 0 0 0 14 11.25v-6.5Zm-9.47.47a.75.75 0 0 0-1.06 0L1.22 7.47a.75.75 0 0 0 0 1.06l2.25 2.25a.75.75 0 1 0 1.06-1.06l-.97-.97h7.19a.75.75 0 0 0 0-1.5H3.56l.97-.97a.75.75 0 0 0 0-1.06Z"
-                                                clip-rule="evenodd"
-                                        />
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
+                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                         stroke-linejoin="round" aria-hidden="true"
+                                         class="lucide lucide-log-out inline-block size-6">
+                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
+                                        <polyline points="16 17 21 12 16 7"/>
+                                        <line x1="21" x2="9" y1="12" y2="12"/>
                                     </svg>
 
                                     {% translate 'Log out' %}</button>
@@ -615,6 +611,7 @@
             <div
                     class="flex grow items-center justify-center rounded-xl border-2 border-dashed border-gray-200/75 py-96 text-gray-400 dark:border-gray-700/50"
             >
+            
                 {% block content %}
 
                 {% endblock %}

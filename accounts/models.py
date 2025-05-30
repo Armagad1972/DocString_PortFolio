@@ -6,9 +6,8 @@ from django.utils.text import slugify
 from iso3166 import countries
 
 
-
 class JadUserManager(BaseUserManager):
-    def create_user(self, email, fname, lname, password=None,**kwargs):
+    def create_user(self, email, fname, lname, password=None, **kwargs):
         """
         Creates and saves a User with the given email, date of
         birth and password.
@@ -61,7 +60,6 @@ class JadUser(AbstractBaseUser, PermissionsMixin):
         help_text="Détermine si l'utilisateur peut se connecter à l'interface d'administration."
     )
 
-
     class Meta:
         verbose_name = "Utilisateur"
 
@@ -72,17 +70,25 @@ class JadUser(AbstractBaseUser, PermissionsMixin):
 
     User = settings.AUTH_USER_MODEL
 
+    def __str__(self):
+        return f"{self.fname} {self.lname}"
+
 
 class Societe(models.Model):
     nom = models.CharField(max_length=255)
     adresse = models.CharField(max_length=255)
     ville = models.CharField(max_length=255)
     pays = models.CharField(max_length=2, choices=[(c.alpha2.lower(), c.name) for c in countries])
-    users = models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name="utilisateurs", on_delete=models.CASCADE, related_name="societes")
+    users = models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name="utilisateurs", on_delete=models.CASCADE,
+                              related_name="societes")
 
     class Meta:
         verbose_name = "Société"
         verbose_name_plural = "Sociétés"
+
+    def __str__(self):
+        return f"{self.nom} {self.ville}"
+
 
 class Magasin(models.Model):
     nom = models.CharField(max_length=255)
@@ -90,16 +96,20 @@ class Magasin(models.Model):
     ville = models.CharField(max_length=255)
     pays = models.CharField(max_length=2, choices=[(c.alpha2.lower(), c.name) for c in countries])
     societe = models.ForeignKey(to=Societe, verbose_name="société", on_delete=models.CASCADE, related_name="magasins")
-    users = models.ManyToManyField(to=settings.AUTH_USER_MODEL,verbose_name="utilisateurs", related_name="magasins", blank=True)
+    users = models.ManyToManyField(to=settings.AUTH_USER_MODEL, verbose_name="utilisateurs", related_name="magasins",
+                                   blank=True)
 
     class Meta:
         verbose_name = "Magasin"
         verbose_name_plural = "Magasins"
 
+    def __str__(self):
+        return self.nom
+
 
 class Produit(models.Model):
     nom = models.CharField(max_length=255, help_text="Nom du produit")
-    slug=models.SlugField(max_length=255)
+    slug = models.SlugField(max_length=255, blank=True, null=True)
     CreationDate = models.DateTimeField(auto_now_add=True)
     UpdateDate = models.DateTimeField(auto_now=True)
 
@@ -107,9 +117,14 @@ class Produit(models.Model):
         verbose_name = "Produit"
         verbose_name_plural = "Produits"
 
+    def __str__(self):
+        return self.nom
+
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.nom)
+            super().save(*args, **kwargs)
+
 
 class Stock(models.Model):
     produit = models.ForeignKey(to=Produit, verbose_name="produit", on_delete=models.RESTRICT, related_name="stock")
@@ -123,20 +138,29 @@ class Stock(models.Model):
         default=0,
         validators=[MinValueValidator(0)]
     )
+
+    def __str__(self):
+        return f"{self.produit} - {self.magasin}-{self.quantite}"
+
     class Meta:
         verbose_name = "Stock"
         verbose_name_plural = "Stocks"
         unique_together = ['produit', 'magasin']
 
+
 class Mouvements(models.Model):
-    produit = models.ForeignKey(to=Produit, verbose_name="produit", on_delete=models.RESTRICT, related_name="mouvements")
-    magasin_in = models.ForeignKey(to=Magasin, verbose_name="magasin", on_delete=models.RESTRICT, related_name="mouvements",null=True, blank=True)
-    magasin_out = models.ForeignKey(to=Magasin, verbose_name="magasin", on_delete=models.RESTRICT, related_name="mouvements_out", null=True, blank=True)
+    produit = models.ForeignKey(to=Produit, verbose_name="produit", on_delete=models.RESTRICT,
+                                related_name="mouvements")
+    magasin_in = models.ForeignKey(to=Magasin, verbose_name="magasin", on_delete=models.RESTRICT,
+                                   related_name="mouvements", null=True, blank=True)
+    magasin_out = models.ForeignKey(to=Magasin, verbose_name="magasin", on_delete=models.RESTRICT,
+                                    related_name="mouvements_out", null=True, blank=True)
     quantite = models.IntegerField(
         verbose_name="quantité",
         validators=[MinValueValidator(0)]
     )
     date = models.DateTimeField(auto_now_add=True)
+
     class Meta:
         verbose_name = "Mouvement"
         verbose_name_plural = "Mouvements"
