@@ -145,41 +145,26 @@
                         Overview
                     </h4>
                     <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium text-indigo-700 hover:bg-gray-100/60 dark:text-indigo-400 dark:hover:bg-gray-700/50"
+                            href="{% url 'societes' %}"
+                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium text-blue-500 hover:bg-gray-100/60 dark:text-indigo-400 dark:hover:bg-gray-700/50"
                     >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-home inline-block size-4 flex-none text-indigo-600 dark:text-indigo-400"
-                        >
-                            <path
-                                    d="M8.543 2.232a.75.75 0 0 0-1.085 0l-5.25 5.5A.75.75 0 0 0 2.75 9H4v4a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1v-1a1 1 0 1 1 2 0v1a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V9h1.25a.75.75 0 0 0 .543-1.268l-5.25-5.5Z"
-                            />
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
+                             aria-hidden="true" class="bi bi-buildings inline-block size-5">
+                            <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022ZM6 8.694 1 10.36V15h5V8.694ZM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15Z"/>
+                            <path d="M2 11h1v1H2v-1Zm2 0h1v1H4v-1Zm-2 2h1v1H2v-1Zm2 0h1v1H4v-1Zm4-4h1v1H8V9Zm2 0h1v1h-1V9Zm-2 2h1v1H8v-1Zm2 0h1v1h-1v-1Zm2-2h1v1h-1V9Zm0 2h1v1h-1v-1ZM8 7h1v1H8V7Zm2 0h1v1h-1V7Zm2 0h1v1h-1V7ZM8 5h1v1H8V5Zm2 0h1v1h-1V5Zm2 0h1v1h-1V5Zm0-2h1v1h-1V3Z"/>
                         </svg>
-                        <span class="grow py-1.5">Dashboard</span>
+
+                        <span class="grow py-1.5">Societes</span>
                     </a>
                     <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
+                            href="{% url 'magasins' %}"
+                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium text-blue-500 hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
                     >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-briefcase inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    fill-rule="evenodd"
-                                    d="M11 4V3a2 2 0 0 0-2-2H7a2 2 0 0 0-2 2v1H4a2 2 0 0 0-2 2v3a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1ZM9 2.5H7a.5.5 0 0 0-.5.5v1h3V3a.5.5 0 0 0-.5-.5ZM9 9a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"
-                                    clip-rule="evenodd"
-                            />
-                            <path
-                                    d="M3 11.83V12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2v-.17c-.313.11-.65.17-1 .17H4c-.35 0-.687-.06-1-.17Z"
-                            />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                             class="hi-micro hi-building-storefront inline-block size-4">
+                            <path d="M4.5 7c.681 0 1.3-.273 1.75-.715C6.7 6.727 7.319 7 8 7s1.3-.273 1.75-.715A2.5 2.5 0 1 0 11.5 2h-7a2.5 2.5 0 0 0 0 5ZM6.25 8.097A3.986 3.986 0 0 1 4.5 8.5c-.53 0-1.037-.103-1.5-.29v4.29h-.25a.75.75 0 0 0 0 1.5h.5a.754.754 0 0 0 .138-.013A.5.5 0 0 0 3.5 14H6a.5.5 0 0 0 .5-.5v-3A.5.5 0 0 1 7 10h2a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h2.5a.5.5 0 0 0 .112-.013c.045.009.09.013.138.013h.5a.75.75 0 1 0 0-1.5H13V8.21c-.463.187-.97.29-1.5.29a3.986 3.986 0 0 1-1.75-.403A3.986 3.986 0 0 1 8 8.5a3.986 3.986 0 0 1-1.75-.403Z"/>
                         </svg>
-                        <span class="grow py-1.5">Projects</span>
+                        <span class="grow py-1.5">Magasins</span>
                     </a>
                     <a
                             href="javascript:void(0)"
@@ -593,33 +578,69 @@
     <!-- END Page Header -->
 
     <!-- Page Content -->
-    <main
-            id="page-content"
-            class="flex max-w-full flex-auto flex-col pt-16 lg:pt-0"
-    >
-        <!-- Page Section -->
-        <div class="container mx-auto grow p-4 lg:p-8 xl:max-w-7xl">
-
-
-        </div>
-        <!-- END Page Section -->
-
-        <!-- Placeholder -->
-        <div
-                class="container mx-auto flex w-full grow flex-col p-4 lg:p-8 xl:max-w-7xl"
-        >
-            <div
-                    class="flex grow items-center justify-center rounded-xl border-2 border-dashed border-gray-200/75 py-96 text-gray-400 dark:border-gray-700/50"
-            >
-            
-                {% block content %}
-
-                {% endblock %}
-            </div>
-        </div>
-        <!-- END Placeholder -->
-    </main>
+    {#    <main#}
+    {#            id="page-content"#}
+    {#            class="flex max-w-full flex-auto flex-col pt-16 lg:pt-0"#}
+    {#    >#}
+    {#        <!-- Page Section -->#}
+    {#        <div class="container mx-auto grow p-4 lg:p-8 xl:max-w-7xl">#}
+    {##}
+    {##}
+    {#        </div>#}
+    {#        <!-- END Page Section -->#}
+    {##}
+    {#        <!-- Placeholder -->#}
+    {#        <div#}
+    {#                class="container mx-auto flex w-full grow flex-col p-4 lg:p-8 xl:max-w-7xl"#}
+    {#        >#}
+    {#            <div#}
+    {#                    class="flex grow items-center justify-center rounded-xl border-2 border-dashed border-gray-200/75#}
+    {#                     text-gray-400 dark:border-gray-700/50"#}
+    {#            >#}
+    {##}
+    {#                {% block content %}#}
+    {##}
+    {#                {% endblock %}#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <!-- END Placeholder -->#}
+    {#    </main>#}
     <!-- END Page Content -->
+    <!--Full Content by my own-->
+    <!-- Page Container -->
+    <div
+            id="page-container"
+            class="mx-auto flex min-h-dvh w-full min-w-80 flex-col bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
+    >
+        <!-- Page Content -->
+        <main id="page-content" class="flex max-w-full flex-auto flex-col">
+            <!-- Page Section -->
+            <div class="mx-auto w-full max-w-10xl p-4 lg:p-8">
+                <!--
+
+                ADD YOUR MAIN CONTENT BELOW
+
+                -->
+
+                <!-- Placeholder -->
+                <div
+                        class="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-64 text-gray-400 dark:border-gray-700 dark:bg-gray-800"
+                >
+                    {% block content %}
+                    {% endblock %}
+                </div>
+
+                <!--
+
+                ADD YOUR MAIN CONTENT ABOVE
+
+                -->
+            </div>
+            <!-- END Page Section -->
+        </main>
+        <!-- END Page Content -->
+    </div>
+    <!-- END Page Container -->
 </div>
 <!-- END Page Container -->
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>

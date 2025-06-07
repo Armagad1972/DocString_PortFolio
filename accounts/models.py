@@ -3,7 +3,7 @@ from django.contrib.auth.models import BaseUserManager, AbstractBaseUser, Permis
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.utils.text import slugify
-from iso3166 import countries
+from django_countries.fields import CountryField
 
 
 class JadUserManager(BaseUserManager):
@@ -78,7 +78,7 @@ class Societe(models.Model):
     nom = models.CharField(max_length=255)
     adresse = models.CharField(max_length=255)
     ville = models.CharField(max_length=255)
-    pays = models.CharField(max_length=2, choices=[(c.alpha2.lower(), c.name) for c in countries])
+    pays = CountryField(blank_label='(select country)')
     users = models.ForeignKey(to=settings.AUTH_USER_MODEL, verbose_name="utilisateurs", on_delete=models.CASCADE,
                               related_name="societes")
 
@@ -94,7 +94,7 @@ class Magasin(models.Model):
     nom = models.CharField(max_length=255)
     adresse = models.CharField(max_length=255)
     ville = models.CharField(max_length=255)
-    pays = models.CharField(max_length=2, choices=[(c.alpha2.lower(), c.name) for c in countries])
+    pays = CountryField(blank_label='(select country)')
     societe = models.ForeignKey(to=Societe, verbose_name="société", on_delete=models.CASCADE, related_name="magasins")
     users = models.ManyToManyField(to=settings.AUTH_USER_MODEL, verbose_name="utilisateurs", related_name="magasins",
                                    blank=True)

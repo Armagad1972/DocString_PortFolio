@@ -46,7 +46,8 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'widget_tweaks',
-    'accounts.apps.AccountsConfig'
+    'accounts.apps.AccountsConfig',
+    'django_countries'
 ]
 
 MIDDLEWARE = [

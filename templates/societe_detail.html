@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="w-full h-auto md:w-3/4">
+        <h2 class="mb-4 text-4xl font-black dark:text-white">Vos sociétés</h2>
+        <br>
+        <ul
+                class="divide-y divide-gray-200 rounded-lg border border-gray-200 bg-slate-800
+            dark:divide-gray-700 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-100"
+        >
+            <li class="flex items- p-4">
+                {#                items-center justify-between#}
+                <span class="mr-1 text-sm text-purple-200 font-semibold"> {{ societe.users }}</span>
+                <span class="mr-1 text-sm text-cyan-200 font-semibold"> {{ societe.nom | upper }}</span>
+                <span class="mr-1 text-sm text-purple-200 font-semibold"> {{ societe.adresse }} </span>
+                <span class="text-sm font-medium text-lime-100">{{ societe.ville | upper }} - {{ societe.pays.name | capfirst }}</span>
+
+            </li>
+        </ul>
+    </div>
+{% endblock %}
