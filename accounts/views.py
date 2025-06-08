@@ -22,7 +22,7 @@ def signup(request):
         form = UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect(request, 'home')
+            return redirect('home')
         else:
             context['errors'] = form.errors
     else:
