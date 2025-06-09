@@ -81,7 +81,10 @@
                             {{ magasin.ville | capfirst }}
                         </td>
                         <td class="p-3">
-                            {{ magasin.users.fname | capfirst }} {{ magasin.users.lname | capfirst }}
+                            <ul>
+                                {% for i in magasin.users.all %}
+                                    <li>{{ i.fname | capfirst }} {{ i.lname | capfirst }}</li>
+                                {% endfor %}</ul>
                         </td>
                         <td class="p-3 text-center">
                             <button
@@ -92,6 +95,9 @@
                             </button>
                         </td>
                     </tr>
+                {% empty %}
+
+                    <span class="text-red-500">Aucun magasin</span>
                 {% endfor %}
                 </tbody>
                 <!-- END Table Body -->

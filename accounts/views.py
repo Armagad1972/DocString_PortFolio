@@ -50,15 +50,18 @@ class SocieteListView(LoginRequiredMixin, ListView):
     template_name = 'societe.html'
     ordering = ['users']
     context_object_name = 'societes'
-    paginate_by = 3
+    paginate_by = 2
 
     # paginate_by = 3
     def get_queryset(self):
-        return Societe.objects.filter(users=self.request.user).order_by(*self.ordering)
+        if self.request.user.is_superuser:
+            return Societe.objects.all().order_by(*self.ordering)
+        else:
+            return Societe.objects.filter(users=self.request.user).order_by(*self.ordering)
 
     def get_paginate_by(self, queryset):
         # Dynamically set items per page, e.g., based on a query parameter
-        return self.request.GET.get('items_per_page', 8)
+        return self.request.GET.get('items_per_page', 2)
 
 
 class SocieteDetailView(LoginRequiredMixin, DetailView):
@@ -100,10 +103,11 @@ class MagasinListView(LoginRequiredMixin, ListView):
     ordering = ['societe']
 
     def get_queryset(self):
-        soc = Societe.objects.filter(users=self.request.user)
-        magasins = Magasin.objects.filter(societe__in=soc).order_by(*self.ordering)
-        return magasins
+        if self.request.user.is_superuser:
+            return Magasin.objects.all().order_by(*self.ordering)
+        else:
+            return Magasin.objects.filter(users=self.request.user).order_by(*self.ordering)
 
     def get_paginate_by(self, queryset):
         # Dynamically set items per page, e.g., based on a query parameter
-        return self.request.GET.get('items_per_page', 15)
+        return self.request.GET.get('items_per_page', 5)

@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load static tailwind_tags %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -10,639 +10,432 @@
 <body>
 <!-- Page Container -->
 <div
-        x-data="{ userDropdownOpen: false, mobileSidebarOpen: false, desktopSidebarOpen: true }"
-        x-bind:class="{
-    'lg:pl-64': desktopSidebarOpen
-  }"
+        x-data="{ userDropdownOpen: false, mobileNavOpen: false }"
         id="page-container"
-        class="mx-auto flex min-h-dvh w-full min-w-80 flex-col bg-white lg:pl-64 dark:bg-gray-900 dark:text-gray-100"
+        class="mx-auto flex min-h-dvh w-full min-w-80 flex-col bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
 >
-    <!-- Page overlay when mobile sidebar is open -->
-    <div
-            x-cloak
-            x-on:click="mobileSidebarOpen = false"
-            x-show="mobileSidebarOpen"
-            x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0"
-            x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-100"
-            x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            x-bind:aria-hidden="!mobileSidebarOpen"
-            tabindex="-1"
-            class="fixed inset-0 z-40 bg-gray-200/50 p-4 backdrop-blur-xs lg:hidden lg:p-8 dark:bg-gray-800/40"
-    ></div>
-    <!-- END Page overlay when mobile sidebar is open -->
-
-    <!-- Page Sidebar -->
-    <aside
-            x-bind:class="{
-      '-translate-x-full': !mobileSidebarOpen,
-      'translate-x-0 shadow-lg shadow-gray-200 dark:shadow-gray-950/50': mobileSidebarOpen,
-      'lg:-translate-x-full': !desktopSidebarOpen,
-      'lg:translate-x-0': desktopSidebarOpen,
-    }"
-            id="page-sidebar"
-            class="fixed top-0 bottom-0 left-0 z-50 flex w-64 -translate-x-full flex-col border-r border-gray-200 bg-white transition-transform duration-300 ease-out lg:translate-x-0 lg:shadow-none dark:border-gray-800 dark:bg-gray-900 dark:text-gray-200"
-            aria-label="Main Sidebar Navigation"
-    >
-        <!-- Sidebar Header -->
-        <div
-                class="flex h-16 flex-none items-center justify-between border-b border-gray-100 px-4 dark:border-gray-800/75"
-        >
-            <!-- Brand -->
-            <a
-                    href="javascript:void(0)"
-                    class="group inline-flex items-center gap-2 px-2.5 font-bold tracking-wide text-gray-900 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300"
-            >
-                <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 73 49"
-                        class="size-6"
-                >
-                    <path
-                            fill="#38bdf8"
-                            d="M46.868 24c0 12.426-10.074 22.5-22.5 22.5-12.427 0-22.5-10.074-22.5-22.5S11.94 1.5 24.368 1.5c12.426 0 22.5 10.074 22.5 22.5Z"
-                    />
-                    <path
-                            fill="#a855f7"
-                            d="M71.132 24c0 12.426-9.975 22.5-22.28 22.5-12.304 0-22.278-10.074-22.278-22.5S36.547 1.5 48.852 1.5c12.304 0 22.28 10.074 22.28 22.5Z"
-                    />
-                    <path
-                            fill="#6b21a8"
-                            d="M36.67 42.842C42.81 38.824 46.868 31.886 46.868 24c0-7.886-4.057-14.824-10.198-18.841A22.537 22.537 0 0 0 26.573 24 22.537 22.537 0 0 0 36.67 42.842Z"
-                    />
-                </svg>
-                <span>Circles AI</span>
-            </a>
-            <!-- END Brand -->
-
-            <!-- Close Sidebar on Mobile -->
-            <div class="flex items-center lg:hidden">
-                <button
-                        x-on:click="mobileSidebarOpen = false"
-                        type="button"
-                        class="group relative inline-flex w-full items-center gap-2 rounded-lg p-2 text-sm leading-5 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
-                >
-          <span
-                  class="absolute inset-0 scale-50 rounded-lg bg-gray-100 opacity-0 transition ease-out group-hover:scale-100 group-hover:opacity-100 group-active:scale-105 group-active:bg-gray-200 dark:bg-gray-700/50 dark:group-active:bg-gray-700/75"
-          ></span>
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            class="rehi-micro hi-x-mark relative inline-block size-4"
-                    >
-                        <path
-                                d="M5.28 4.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 4.22Z"
-                        />
-                    </svg>
-                </button>
-            </div>
-            <!-- END Close Sidebar on Mobile -->
-        </div>
-        <!-- END Sidebar Header -->
-
-        <!-- Sidebar Content -->
-        <div class="grow overflow-y-auto">
-            <div class="flex flex-col gap-4 px-4 py-6">
-                <!-- Search -->
-                <form onsubmit="return false;" class="mx-2.5">
-                    <div class="relative">
-                        <div
-                                class="pointer-events-none absolute inset-y-0 left-0 my-px ml-px flex w-10 items-center justify-center rounded-l-lg text-gray-500 dark:text-gray-400"
-                        >
-                            <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    viewBox="0 0 16 16"
-                                    fill="currentColor"
-                                    class="hi-micro hi-magnifying-glass inline-block size-4"
-                            >
-                                <path
-                                        fill-rule="evenodd"
-                                        d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                                        clip-rule="evenodd"
-                                />
-                            </svg>
-                        </div>
-                        <input
-                                type="text"
-                                id="search"
-                                name="search"
-                                class="block w-full rounded-lg border border-gray-100 bg-gray-50 py-1.5 pr-3 pl-9 text-sm leading-6 placeholder-gray-500 focus:border-gray-300 focus:ring-4 focus:ring-gray-100 dark:border-gray-700 dark:bg-gray-800/50 dark:placeholder-gray-400 dark:focus:border-gray-600/50 dark:focus:ring-gray-800"
-                                placeholder="Search.."
-                        />
-                    </div>
-                </form>
-                <!-- END Search -->
-
-                <!-- Navigation -->
-                <nav class="flex flex-col gap-0.5">
-                    <h4
-                            class="mx-2.5 pb-2 text-sm font-semibold text-black dark:text-white"
-                    >
-                        Overview
-                    </h4>
-                    <a
-                            href="{% url 'societes' %}"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium text-blue-500 hover:bg-gray-100/60 dark:text-indigo-400 dark:hover:bg-gray-700/50"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16"
-                             aria-hidden="true" class="bi bi-buildings inline-block size-5">
-                            <path d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022ZM6 8.694 1 10.36V15h5V8.694ZM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15Z"/>
-                            <path d="M2 11h1v1H2v-1Zm2 0h1v1H4v-1Zm-2 2h1v1H2v-1Zm2 0h1v1H4v-1Zm4-4h1v1H8V9Zm2 0h1v1h-1V9Zm-2 2h1v1H8v-1Zm2 0h1v1h-1v-1Zm2-2h1v1h-1V9Zm0 2h1v1h-1v-1ZM8 7h1v1H8V7Zm2 0h1v1h-1V7Zm2 0h1v1h-1V7ZM8 5h1v1H8V5Zm2 0h1v1h-1V5Zm2 0h1v1h-1V5Zm0-2h1v1h-1V3Z"/>
-                        </svg>
-
-                        <span class="grow py-1.5">Societes</span>
-                    </a>
-                    <a
-                            href="{% url 'magasins' %}"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium text-blue-500 hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
-                             class="hi-micro hi-building-storefront inline-block size-4">
-                            <path d="M4.5 7c.681 0 1.3-.273 1.75-.715C6.7 6.727 7.319 7 8 7s1.3-.273 1.75-.715A2.5 2.5 0 1 0 11.5 2h-7a2.5 2.5 0 0 0 0 5ZM6.25 8.097A3.986 3.986 0 0 1 4.5 8.5c-.53 0-1.037-.103-1.5-.29v4.29h-.25a.75.75 0 0 0 0 1.5h.5a.754.754 0 0 0 .138-.013A.5.5 0 0 0 3.5 14H6a.5.5 0 0 0 .5-.5v-3A.5.5 0 0 1 7 10h2a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h2.5a.5.5 0 0 0 .112-.013c.045.009.09.013.138.013h.5a.75.75 0 1 0 0-1.5H13V8.21c-.463.187-.97.29-1.5.29a3.986 3.986 0 0 1-1.75-.403A3.986 3.986 0 0 1 8 8.5a3.986 3.986 0 0 1-1.75-.403Z"/>
-                        </svg>
-                        <span class="grow py-1.5">Magasins</span>
-                    </a>
-                    <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-chart-bar inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    d="M12 2a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h1a1 1 0 0 0 1-1V3a1 1 0 0 0-1-1h-1ZM6.5 6a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1V6ZM2 9a1 1 0 0 1 1-1h1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V9Z"
-                            />
-                        </svg>
-                        <span class="grow py-1.5">Sales</span>
-                    </a>
-                    <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-document-text inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    fill-rule="evenodd"
-                                    d="M4 2a1.5 1.5 0 0 0-1.5 1.5v9A1.5 1.5 0 0 0 4 14h8a1.5 1.5 0 0 0 1.5-1.5V6.621a1.5 1.5 0 0 0-.44-1.06L9.94 2.439A1.5 1.5 0 0 0 8.878 2H4Zm1 5.75A.75.75 0 0 1 5.75 7h4.5a.75.75 0 0 1 0 1.5h-4.5A.75.75 0 0 1 5 7.75Zm0 3a.75.75 0 0 1 .75-.75h4.5a.75.75 0 0 1 0 1.5h-4.5a.75.75 0 0 1-.75-.75Z"
-                                    clip-rule="evenodd"
-                            />
-                        </svg>
-                        <span class="grow py-1.5">Invoices</span>
-                    </a>
-                    <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-users inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    d="M8.5 4.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0ZM10.9 12.006c.11.542-.348.994-.9.994H2c-.553 0-1.01-.452-.902-.994a5.002 5.002 0 0 1 9.803 0ZM14.002 12h-1.59a2.556 2.556 0 0 0-.04-.29 6.476 6.476 0 0 0-1.167-2.603 3.002 3.002 0 0 1 3.633 1.911c.18.522-.283.982-.836.982ZM12 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z"
-                            />
-                        </svg>
-                        <span class="grow py-1.5">Customers</span>
-                    </a>
-                    <h4
-                            class="mx-2.5 pt-6 pb-2 text-sm font-semibold text-black dark:text-white"
-                    >
-                        Account
-                    </h4>
-                    <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-user-circle inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    fill-rule="evenodd"
-                                    d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-5-2a2 2 0 1 1-4 0 2 2 0 0 1 4 0ZM8 9c-1.825 0-3.422.977-4.295 2.437A5.49 5.49 0 0 0 8 13.5a5.49 5.49 0 0 0 4.294-2.063A4.997 4.997 0 0 0 8 9Z"
-                                    clip-rule="evenodd"
-                            />
-                        </svg>
-                        <span class="grow py-1.5">Profile</span>
-                    </a>
-                    <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-shield-check inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    fill-rule="evenodd"
-                                    d="M8.5 1.709a.75.75 0 0 0-1 0 8.963 8.963 0 0 1-4.84 2.217.75.75 0 0 0-.654.72 10.499 10.499 0 0 0 5.647 9.672.75.75 0 0 0 .694-.001 10.499 10.499 0 0 0 5.647-9.672.75.75 0 0 0-.654-.719A8.963 8.963 0 0 1 8.5 1.71Zm2.34 5.504a.75.75 0 0 0-1.18-.926L7.394 9.17l-1.156-.99a.75.75 0 1 0-.976 1.138l1.75 1.5a.75.75 0 0 0 1.078-.106l2.75-3.5Z"
-                                    clip-rule="evenodd"
-                            />
-                        </svg>
-                        <span class="grow py-1.5">License</span>
-                    </a>
-                    <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-cog-8-tooth inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    fill-rule="evenodd"
-                                    d="M6.955 1.45A.5.5 0 0 1 7.452 1h1.096a.5.5 0 0 1 .497.45l.17 1.699c.484.12.94.312 1.356.562l1.321-1.081a.5.5 0 0 1 .67.033l.774.775a.5.5 0 0 1 .034.67l-1.08 1.32c.25.417.44.873.561 1.357l1.699.17a.5.5 0 0 1 .45.497v1.096a.5.5 0 0 1-.45.497l-1.699.17c-.12.484-.312.94-.562 1.356l1.082 1.322a.5.5 0 0 1-.034.67l-.774.774a.5.5 0 0 1-.67.033l-1.322-1.08c-.416.25-.872.44-1.356.561l-.17 1.699a.5.5 0 0 1-.497.45H7.452a.5.5 0 0 1-.497-.45l-.17-1.699a4.973 4.973 0 0 1-1.356-.562L4.108 13.37a.5.5 0 0 1-.67-.033l-.774-.775a.5.5 0 0 1-.034-.67l1.08-1.32a4.971 4.971 0 0 1-.561-1.357l-1.699-.17A.5.5 0 0 1 1 8.548V7.452a.5.5 0 0 1 .45-.497l1.699-.17c.12-.484.312-.94.562-1.356L2.629 4.107a.5.5 0 0 1 .034-.67l.774-.774a.5.5 0 0 1 .67-.033L5.43 3.71a4.97 4.97 0 0 1 1.356-.561l.17-1.699ZM6 8c0 .538.212 1.026.558 1.385l.057.057a2 2 0 0 0 2.828-2.828l-.058-.056A2 2 0 0 0 6 8Z"
-                                    clip-rule="evenodd"
-                            />
-                        </svg>
-                        <span class="grow py-1.5">Settings</span>
-                    </a>
-                    <h4
-                            class="mx-2.5 pt-6 pb-2 text-sm font-semibold text-black dark:text-white"
-                    >
-                        Support
-                    </h4>
-                    <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-question-mark-circle inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    fill-rule="evenodd"
-                                    d="M15 8A7 7 0 1 1 1 8a7 7 0 0 1 14 0Zm-6 3.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM7.293 5.293a1 1 0 1 1 .99 1.667c-.459.134-1.033.566-1.033 1.29v.25a.75.75 0 1 0 1.5 0v-.115a2.5 2.5 0 1 0-2.518-4.153.75.75 0 1 0 1.061 1.06Z"
-                                    clip-rule="evenodd"
-                            />
-                        </svg>
-                        <span class="grow py-1.5">FAQ</span>
-                    </a>
-                    <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-lifebuoy inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    fill-rule="evenodd"
-                                    d="M12.95 3.05a7 7 0 1 0-9.9 9.9 7 7 0 0 0 9.9-9.9Zm-7.262-.042a5.516 5.516 0 0 1 4.624 0L8.698 5.082a3.016 3.016 0 0 0-1.396 0L5.688 3.008Zm-2.68 2.68a5.516 5.516 0 0 0 0 4.624l2.074-1.614a3.015 3.015 0 0 1 0-1.396L3.008 5.688Zm2.68 7.304 1.614-2.074c.458.11.938.11 1.396 0l1.614 2.074a5.516 5.516 0 0 1-4.624 0Zm7.304-2.68a5.516 5.516 0 0 0 0-4.624l-2.074 1.614c.11.458.11.938 0 1.396l2.074 1.614ZM6.94 6.939a1.5 1.5 0 1 1 2.122 2.122 1.5 1.5 0 0 1-2.122-2.122Z"
-                                    clip-rule="evenodd"
-                            />
-                        </svg>
-                        <span class="grow py-1.5">Help</span>
-                    </a>
-                    <a
-                            href="javascript:void(0)"
-                            class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                    >
-                        <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 16 16"
-                                fill="currentColor"
-                                class="hi-micro hi-book-open inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                        >
-                            <path
-                                    d="M7.25 3.688a8.035 8.035 0 0 0-4.872-.523A.48.48 0 0 0 2 3.64v7.994c0 .345.342.588.679.512a6.02 6.02 0 0 1 4.571.81V3.688ZM8.75 12.956a6.02 6.02 0 0 1 4.571-.81c.337.075.679-.167.679-.512V3.64a.48.48 0 0 0-.378-.475 8.034 8.034 0 0 0-4.872.523v9.268Z"
-                            />
-                        </svg>
-                        <span class="grow py-1.5">Documentation</span>
-                    </a>
-                </nav>
-                <!-- END Navigation -->
-            </div>
-        </div>
-        <!-- END Sidebar Content -->
-
-        <!-- Sidebar Footer -->
-        <div
-                class="flex flex-none items-center border-t border-gray-100 p-4 dark:border-gray-800/75"
-        >
-            <!-- User Dropdown -->
-            <div class="relative w-full">
-                <!-- Dropdown Toggle Button -->
-                <button
-                        x-on:click="userDropdownOpen = true"
-                        x-bind:aria-expanded="userDropdownOpen"
-                        type="button"
-                        id="tk-dropdown-layouts-user"
-                        class="group relative inline-flex w-full items-center justify-between gap-2 rounded-lg px-2.5 py-1.5 text-sm leading-5 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
-                        aria-haspopup="true"
-                >
-          <span
-                  class="absolute inset-0 scale-50 rounded-lg bg-gray-100 opacity-0 transition ease-out group-hover:scale-100 group-hover:opacity-100 group-active:scale-105 group-active:bg-gray-200 dark:bg-gray-700/50 dark:group-active:bg-gray-700/75"
-          ></span>
-                    <span class="relative inline-flex items-center gap-2">
-            <span class="relative inline-block flex-none">
-              <span
-                      class="absolute top-0 right-0 -mt-1 -mr-1 size-3 rounded-full border-2 border-white bg-emerald-500"
-              ></span>
-              <img
-                      src="https://cdn.tailkit.com/media/placeholders/avatar-bY4GXQKfZrA-160x160.jpg"
-                      alt="User Avatar"
-                      class="inline-block size-8 rounded-lg"
-              />
-            </span>
-            <span class="flex grow flex-col text-left">
-              <span class="w-40 truncate text-sm font-semibold">
-                {{ user }}
-              </span>
-              <span
-                      class="w-40 truncate text-xs font-medium text-gray-500 dark:text-gray-400"
-              >
-                {{ user.email }}
-              </span>
-            </span>
-          </span>
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 16 16"
-                            fill="currentColor"
-                            class="hi-micro hi-ellipsis-horizontal relative inline-block size-4 flex-none opacity-50"
-                    >
-                        <path
-                                d="M2 8a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM6.5 8a1.5 1.5 0 1 1 3 0 1.5 1.5 0 0 1-3 0ZM12.5 6.5a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3Z"
-                        />
-                    </svg>
-                </button>
-                <!-- END Dropdown Toggle Button -->
-
-                <!-- Dropdown -->
-                <div
-                        x-cloak
-                        x-trap="userDropdownOpen"
-                        x-show="userDropdownOpen"
-                        x-transition:enter="transition ease-out duration-100"
-                        x-transition:enter-start="opacity-0 translate-y-4"
-                        x-transition:enter-end="opacity-100 translate-y-0"
-                        x-transition:leave="transition ease-in duration-75"
-                        x-transition:leave-start="opacity-100 translate-y-0"
-                        x-transition:leave-end="opacity-0 -translate-y-4"
-                        x-on:click.outside="userDropdownOpen = false"
-                        x-on:keydown.down.prevent="$focus.next()"
-                        x-on:keydown.up.prevent="$focus.prev()"
-                        x-on:keydown.home.prevent="$focus.first()"
-                        x-on:keydown.end.prevent="$focus.last()"
-                        x-on:keydown.escape.window="userDropdownOpen = false"
-                        role="menu"
-                        aria-labelledby="tk-dropdown-layouts-user"
-                        class="absolute right-0 bottom-full left-0 z-10 mb-1 origin-bottom rounded-lg shadow-xl shadow-gray-500/10 dark:shadow-gray-900"
-                >
-                    <div
-                            class="divide-y divide-gray-100 rounded-lg bg-white ring-1 ring-black/5 dark:divide-gray-700 dark:bg-gray-800 dark:ring-gray-700"
-                    >
-                        <div class="space-y-1 p-2.5">
-                            <a
-                                    role="menuitem"
-                                    href="javascript:void(0)"
-                                    class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                            >
-                                <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 16 16"
-                                        fill="currentColor"
-                                        class="hi-micro hi-inbox inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                                >
-                                    <path
-                                            fill-rule="evenodd"
-                                            d="M4.784 3A2.25 2.25 0 0 0 2.68 4.449L1.147 8.475A2.25 2.25 0 0 0 1 9.276v1.474A2.25 2.25 0 0 0 3.25 13h9.5A2.25 2.25 0 0 0 15 10.75V9.276c0-.274-.05-.545-.147-.801l-1.534-4.026A2.25 2.25 0 0 0 11.216 3H4.784Zm-.701 1.983a.75.75 0 0 1 .7-.483h6.433a.75.75 0 0 1 .701.483L13.447 9h-2.412a1 1 0 0 0-.832.445l-.406.61a1 1 0 0 1-.832.445h-1.93a1 1 0 0 1-.832-.445l-.406-.61A1 1 0 0 0 4.965 9H2.553l1.53-4.017Z"
-                                            clip-rule="evenodd"
-                                    />
-                                </svg>
-                                <span class="grow py-1.5">Inbox</span>
-                            </a>
-                            <a
-                                    role="menuitem"
-                                    href="javascript:void(0)"
-                                    class="group flex items-center gap-2.5 rounded-lg px-2.5 text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                            >
-                                <svg
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 16 16"
-                                        fill="currentColor"
-                                        class="hi-micro hi-cursor-arrow-rays inline-block size-4 flex-none text-gray-400 group-hover:text-gray-950 dark:group-hover:text-gray-50"
-                                >
-                                    <path
-                                            d="M7.25 1.75a.75.75 0 0 1 1.5 0v1.5a.75.75 0 0 1-1.5 0v-1.5ZM11.536 2.904a.75.75 0 1 1 1.06 1.06l-1.06 1.061a.75.75 0 0 1-1.061-1.06l1.06-1.061ZM14.5 7.5a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 .75-.75ZM4.464 9.975a.75.75 0 0 1 1.061 1.06l-1.06 1.061a.75.75 0 1 1-1.061-1.06l1.06-1.061ZM4.5 7.5a.75.75 0 0 0-.75-.75h-1.5a.75.75 0 0 0 0 1.5h1.5a.75.75 0 0 0 .75-.75ZM5.525 3.964a.75.75 0 0 1-1.06 1.061l-1.061-1.06a.75.75 0 0 1 1.06-1.061l1.061 1.06ZM8.779 7.438a.75.75 0 0 0-1.368.366l-.396 5.283a.75.75 0 0 0 1.212.646l.602-.474.288 1.074a.75.75 0 1 0 1.449-.388l-.288-1.075.759.11a.75.75 0 0 0 .726-1.165L8.78 7.438Z"
-                                    />
-                                </svg>
-                                <span class="grow py-1.5">Payments</span>
-                            </a>
-                        </div>
-                        <div class="space-y-1 p-2.5">
-                            <form id="logout-form" method="post" action="{% url 'logout' %}">
-                                {% csrf_token %}
-                                <button
-                                        type="submit"
-                                        role="menuitem"
-                                        class="group flex w-full items-center gap-2.5 rounded-lg px-2.5 text-left text-sm font-medium hover:bg-gray-100/60 dark:hover:bg-gray-700/50"
-                                >
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"
-                                         stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                                         stroke-linejoin="round" aria-hidden="true"
-                                         class="lucide lucide-log-out inline-block size-6">
-                                        <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/>
-                                        <polyline points="16 17 21 12 16 7"/>
-                                        <line x1="21" x2="9" y1="12" y2="12"/>
-                                    </svg>
-
-                                    {% translate 'Log out' %}</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-                <!-- END Dropdown -->
-            </div>
-            <!-- END User Dropdown -->
-        </div>
-        <!-- END Sidebar Footer -->
-    </aside>
-    <!-- Page Sidebar -->
-
     <!-- Page Header -->
     <header
             id="page-header"
-            class="fixed top-0 right-0 left-0 z-30 flex h-16 flex-none items-center bg-white/90 backdrop-blur-xs lg:hidden lg:pl-64 dark:bg-gray-900/90"
+            class="z-1 flex flex-none items-center bg-white shadow-xs dark:bg-gray-800"
     >
-        <div
-                class="container mx-auto flex w-full justify-between px-4 lg:px-8 xl:max-w-7xl"
-        >
-            <!-- Left Section -->
-            <div class="flex flex-none items-center gap-4">
-                <!-- Toggle Sidebar on Mobile -->
-                <button
-                        x-on:click="mobileSidebarOpen = !mobileSidebarOpen"
-                        type="button"
-                        class="group relative inline-flex w-full items-center gap-2 rounded-lg p-2 text-sm leading-5 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
-                >
-          <span
-                  class="absolute inset-0 scale-50 rounded-lg bg-gray-100 opacity-0 transition ease-out group-hover:scale-100 group-hover:opacity-100 group-active:scale-105 group-active:bg-gray-200 dark:bg-gray-700/50 dark:group-active:bg-gray-700/75"
-          ></span>
-                    <svg
-                            class="hi-solid hi-menu-alt-1 relative inline-block size-5"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                            xmlns="http://www.w3.org/2000/svg"
+        <div class="container mx-auto px-4 w-full">
+            <div class="flex justify-between py-4">
+                <!-- Left Section -->
+                <div class="flex items-center gap-2 lg:gap-6">
+                    <!-- Logo -->
+                    <a
+                            href="javascript:void(0)"
+                            class="group inline-flex items-center gap-2 text-lg font-bold tracking-wide text-gray-900 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300"
                     >
-                        <path
-                                fill-rule="evenodd"
-                                d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h6a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
-                                clip-rule="evenodd"
-                        />
-                    </svg>
-                </button>
-                <!-- END Toggle Sidebar on Mobile -->
-            </div>
-            <!-- END Left Section -->
+                        <svg
+                                class="hi-mini hi-cube-transparent inline-block size-5 text-pink-600 transition group-hover:scale-110 dark:text-pink-400"
+                                xmlns="http://www.w3.org/2000/svg"
+                                viewBox="0 0 20 20"
+                                fill="currentColor"
+                                aria-hidden="true"
+                        >
+                            <path
+                                    fill-rule="evenodd"
+                                    d="M9.638 1.093a.75.75 0 01.724 0l2 1.104a.75.75 0 11-.724 1.313L10 2.607l-1.638.903a.75.75 0 11-.724-1.313l2-1.104zM5.403 4.287a.75.75 0 01-.295 1.019l-.805.444.805.444a.75.75 0 01-.724 1.314L3.5 7.02v.73a.75.75 0 01-1.5 0v-2a.75.75 0 01.388-.657l1.996-1.1a.75.75 0 011.019.294zm9.194 0a.75.75 0 011.02-.295l1.995 1.101A.75.75 0 0118 5.75v2a.75.75 0 01-1.5 0v-.73l-.884.488a.75.75 0 11-.724-1.314l.806-.444-.806-.444a.75.75 0 01-.295-1.02zM7.343 8.284a.75.75 0 011.02-.294L10 8.893l1.638-.903a.75.75 0 11.724 1.313l-1.612.89v1.557a.75.75 0 01-1.5 0v-1.557l-1.612-.89a.75.75 0 01-.295-1.019zM2.75 11.5a.75.75 0 01.75.75v1.557l1.608.887a.75.75 0 01-.724 1.314l-1.996-1.101A.75.75 0 012 14.25v-2a.75.75 0 01.75-.75zm14.5 0a.75.75 0 01.75.75v2a.75.75 0 01-.388.657l-1.996 1.1a.75.75 0 11-.724-1.313l1.608-.887V12.25a.75.75 0 01.75-.75zm-7.25 4a.75.75 0 01.75.75v.73l.888-.49a.75.75 0 01.724 1.313l-2 1.104a.75.75 0 01-.724 0l-2-1.104a.75.75 0 11.724-1.313l.888.49v-.73a.75.75 0 01.75-.75z"
+                                    clip-rule="evenodd"
+                            />
+                        </svg>
+                        <span>Company</span>
+                    </a>
+                    <!-- END Logo -->
 
-            <!-- Center Section -->
-            <div class="flex grow items-center justify-center lg:hidden">
-                <a
-                        href="javascript:void(0)"
-                        class="group inline-flex items-center gap-2 font-bold tracking-wide text-gray-900 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300"
-                >
-                    <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 73 49"
-                            class="size-6"
+                    <!-- Desktop Navigation -->
+                    <nav class="hidden items-center gap-2 lg:flex">
+                        <a
+                                href='{% url 'societes' %}'
+                                class="{% if request.resolver_match.url_name == 'societes' %}
+              border border-pink-100 bg-pink-50 text-pink-600
+              {% else %}
+              border-transparent hover:bg-pink-50 hover:text-pink-600
+              {% endif %}
+ group flex items-center gap-2 rounded-lg  px-3 py-2 text-sm font-medium  dark:border-transparent dark:bg-gray-700 dark:text-white"
+                        >
+                            <span>Sociétés</span>
+                        </a>
+                        <a
+                                href='{% url 'magasins' %}'
+                                class="{% if request.resolver_match.url_name == 'magasins' %}
+              border border-pink-100 bg-pink-50 text-pink-600
+              {% else %}
+              border-transparent hover:bg-pink-50 hover:text-pink-600
+              {% endif %}
+group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                        >
+                            <span>Magasins</span>
+                        </a>
+                        <a
+                                href="javascript:void(0)"
+                                class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                        >
+                            <span>Projects</span>
+                        </a>
+                        <a
+                                href="javascript:void(0)"
+                                class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                        >
+                            <span>Sales</span>
+                        </a>
+                    </nav>
+                    <!-- END Desktop Navigation -->
+                </div>
+                <!-- END Left Section -->
+
+                <!-- Right Section -->
+                <div class="flex items-center gap-2">
+                    <!-- Notifications -->
+                    <a
+                            href="javascript:void(0)"
+                            class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm leading-5 font-semibold text-gray-800 hover:border-gray-300 hover:text-gray-900 hover:shadow-xs focus:ring-3 focus:ring-gray-300/25 active:border-gray-200 active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-200 dark:focus:ring-gray-600/40 dark:active:border-gray-700"
                     >
-                        <path
-                                fill="#38bdf8"
-                                d="M46.868 24c0 12.426-10.074 22.5-22.5 22.5-12.427 0-22.5-10.074-22.5-22.5S11.94 1.5 24.368 1.5c12.426 0 22.5 10.074 22.5 22.5Z"
-                        />
-                        <path
-                                fill="#a855f7"
-                                d="M71.132 24c0 12.426-9.975 22.5-22.28 22.5-12.304 0-22.278-10.074-22.278-22.5S36.547 1.5 48.852 1.5c12.304 0 22.28 10.074 22.28 22.5Z"
-                        />
-                        <path
-                                fill="#6b21a8"
-                                d="M36.67 42.842C42.81 38.824 46.868 31.886 46.868 24c0-7.886-4.057-14.824-10.198-18.841A22.537 22.537 0 0 0 26.573 24 22.537 22.537 0 0 0 36.67 42.842Z"
-                        />
-                    </svg>
-                    <span>Circles AI</span>
-                </a>
-            </div>
-            <!-- END Center Section -->
+                        <svg
+                                class="hi-outline hi-bell-alert inline-block size-5"
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                stroke-width="1.5"
+                                stroke="currentColor"
+                                aria-hidden="true"
+                        >
+                            <path
+                                    stroke-linecap="round"
+                                    stroke-linejoin="round"
+                                    d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0M3.124 7.5A8.969 8.969 0 015.292 3m13.416 0a8.969 8.969 0 012.168 4.5"
+                            />
+                        </svg>
+                    </a>
+                    <!-- END Notifications -->
 
-            <!-- Right Section -->
-            <div class="flex flex-none items-center gap-2">
-                <!-- Settings -->
-                <button
-                        type="button"
-                        class="group relative inline-flex w-full items-center gap-2 rounded-lg p-1.5 text-sm leading-5 text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-white"
-                >
-          <span
-                  class="absolute inset-0 scale-50 rounded-lg bg-gray-100 opacity-0 transition ease-out group-hover:scale-100 group-hover:opacity-100 group-active:scale-105 group-active:bg-gray-200 dark:bg-gray-700/50 dark:group-active:bg-gray-700/75"
-          ></span>
-                    <span class="relative inline-block">
-            <span
-                    class="absolute top-0 right-0 -mt-1 -mr-1 size-3 rounded-full border border-white bg-emerald-500"
-            ></span>
-            <img
-                    src="https://cdn.tailkit.com/media/placeholders/avatar-bY4GXQKfZrA-160x160.jpg"
-                    alt="User Avatar"
-                    class="inline-block size-6 rounded-lg"
-            />
-          </span>
-                </button>
-                <!-- END Settings -->
+                    <!-- User Dropdown -->
+                    <div class="relative inline-block">
+                        <!-- Dropdown Toggle Button -->
+                        <button
+                                x-on:click="userDropdownOpen = true"
+                                x-bind:aria-expanded="userDropdownOpen"
+                                type="button"
+                                id="tk-dropdown-layouts-user"
+                                class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm leading-5 font-semibold text-gray-800 hover:border-gray-300 hover:text-gray-900 hover:shadow-xs focus:ring-3 focus:ring-gray-300/25 active:border-gray-200 active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-200 dark:focus:ring-gray-600/40 dark:active:border-gray-700"
+                                aria-haspopup="true"
+                        >
+                            <svg
+                                    class="hi-mini hi-user-circle inline-block size-5 sm:hidden"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                            >
+                                <path
+                                        fill-rule="evenodd"
+                                        d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"
+                                        clip-rule="evenodd"
+                                />
+                            </svg>
+                            <span class="hidden sm:inline">{{ user.fname }}</span>
+                            <svg
+                                    class="hi-mini hi-chevron-down hidden size-5 opacity-40 sm:inline-block"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                            >
+                                <path
+                                        fill-rule="evenodd"
+                                        d="M5.23 7.21a.75.75 0 011.06.02L10 11.168l3.71-3.938a.75.75 0 111.08 1.04l-4.25 4.5a.75.75 0 01-1.08 0l-4.25-4.5a.75.75 0 01.02-1.06z"
+                                        clip-rule="evenodd"
+                                />
+                            </svg>
+                        </button>
+                        <!-- END Dropdown Toggle Button -->
+
+                        <!-- Dropdown -->
+                        <div
+                                x-cloak
+                                x-trap="userDropdownOpen"
+                                x-show="userDropdownOpen"
+                                x-transition:enter="transition ease-out duration-100"
+                                x-transition:enter-start="opacity-0 scale-90"
+                                x-transition:enter-end="opacity-100 scale-100"
+                                x-transition:leave="transition ease-in duration-75"
+                                x-transition:leave-start="opacity-100 scale-100"
+                                x-transition:leave-end="opacity-0 scale-90"
+                                x-on:click.outside="userDropdownOpen = false"
+                                x-on:keydown.down.prevent="$focus.next()"
+                                x-on:keydown.up.prevent="$focus.prev()"
+                                x-on:keydown.home.prevent="$focus.first()"
+                                x-on:keydown.end.prevent="$focus.last()"
+                                x-on:keydown.escape.window="userDropdownOpen = false"
+                                role="menu"
+                                aria-labelledby="tk-dropdown-layouts-user"
+                                class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-lg shadow-xl dark:shadow-gray-900"
+                        >
+                            <div
+                                    class="divide-y divide-gray-100 rounded-lg bg-white ring-1 ring-black/5 dark:divide-gray-700 dark:bg-gray-800 dark:ring-gray-700"
+                            >
+                                <div class="space-y-1 p-2.5">
+                                    <a
+                                            role="menuitem"
+                                            href="javascript:void(0)"
+                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                    >
+                                        <svg
+                                                class="hi-mini hi-inbox inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                                aria-hidden="true"
+                                        >
+                                            <path
+                                                    fill-rule="evenodd"
+                                                    d="M1 11.27c0-.246.033-.492.099-.73l1.523-5.521A2.75 2.75 0 015.273 3h9.454a2.75 2.75 0 012.651 2.019l1.523 5.52c.066.239.099.485.099.732V15a2 2 0 01-2 2H3a2 2 0 01-2-2v-3.73zm3.068-5.852A1.25 1.25 0 015.273 4.5h9.454a1.25 1.25 0 011.205.918l1.523 5.52c.006.02.01.041.015.062H14a1 1 0 00-.86.49l-.606 1.02a1 1 0 01-.86.49H8.236a1 1 0 01-.894-.553l-.448-.894A1 1 0 006 11H2.53l.015-.062 1.523-5.52z"
+                                                    clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                        <span class="grow">Inbox</span>
+                                        <div
+                                                class="inline-flex rounded-full border border-pink-200 bg-pink-100 px-1.5 py-0.5 text-xs leading-4 font-semibold text-pink-700 dark:border-pink-700 dark:bg-pink-700 dark:text-pink-50"
+                                        >
+                                            2
+                                        </div>
+                                    </a>
+                                    <a
+                                            role="menuitem"
+                                            href="javascript:void(0)"
+                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                    >
+                                        <svg
+                                                class="hi-mini hi-flag inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                                aria-hidden="true"
+                                        >
+                                            <path
+                                                    d="M3.5 2.75a.75.75 0 00-1.5 0v14.5a.75.75 0 001.5 0v-4.392l1.657-.348a6.449 6.449 0 014.271.572 7.948 7.948 0 005.965.524l2.078-.64A.75.75 0 0018 12.25v-8.5a.75.75 0 00-.904-.734l-2.38.501a7.25 7.25 0 01-4.186-.363l-.502-.2a8.75 8.75 0 00-5.053-.439l-1.475.31V2.75z"
+                                            />
+                                        </svg>
+                                        <span class="grow">Notifications</span>
+                                        <div
+                                                class="inline-flex rounded-full border border-pink-200 bg-pink-100 px-1.5 py-0.5 text-xs leading-4 font-semibold text-pink-700 dark:border-pink-700 dark:bg-pink-700 dark:text-pink-50"
+                                        >
+                                            5
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="space-y-1 p-2.5">
+                                    <a
+                                            role="menuitem"
+                                            href="javascript:void(0)"
+                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                    >
+                                        <svg
+                                                class="hi-mini hi-user-circle inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                                aria-hidden="true"
+                                        >
+                                            <path
+                                                    fill-rule="evenodd"
+                                                    d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-5.5-2.5a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0zM10 12a5.99 5.99 0 00-4.793 2.39A6.483 6.483 0 0010 16.5a6.483 6.483 0 004.793-2.11A5.99 5.99 0 0010 12z"
+                                                    clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                        <span class="grow">Account</span>
+                                    </a>
+                                    <a
+                                            role="menuitem"
+                                            href="javascript:void(0)"
+                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                    >
+                                        <svg
+                                                class="hi-mini hi-cog-6-tooth inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 20 20"
+                                                fill="currentColor"
+                                                aria-hidden="true"
+                                        >
+                                            <path
+                                                    fill-rule="evenodd"
+                                                    d="M7.84 1.804A1 1 0 018.82 1h2.36a1 1 0 01.98.804l.331 1.652a6.993 6.993 0 011.929 1.115l1.598-.54a1 1 0 011.186.447l1.18 2.044a1 1 0 01-.205 1.251l-1.267 1.113a7.047 7.047 0 010 2.228l1.267 1.113a1 1 0 01.206 1.25l-1.18 2.045a1 1 0 01-1.187.447l-1.598-.54a6.993 6.993 0 01-1.929 1.115l-.33 1.652a1 1 0 01-.98.804H8.82a1 1 0 01-.98-.804l-.331-1.652a6.993 6.993 0 01-1.929-1.115l-1.598.54a1 1 0 01-1.186-.447l-1.18-2.044a1 1 0 01.205-1.251l1.267-1.114a7.05 7.05 0 010-2.227L1.821 7.773a1 1 0 01-.206-1.25l1.18-2.045a1 1 0 011.187-.447l1.598.54A6.993 6.993 0 017.51 3.456l.33-1.652zM10 13a3 3 0 100-6 3 3 0 000 6z"
+                                                    clip-rule="evenodd"
+                                            />
+                                        </svg>
+                                        <span class="grow">Settings</span>
+                                    </a>
+                                </div>
+                                <div class="space-y-1 p-2.5">
+                                    <form id="logout-form" method="post" action="{% url 'logout' %}">
+                                        {% csrf_token %}
+                                        <button
+                                                type="submit"
+                                                role="menuitem"
+                                                class="group flex w-full items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-left text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                        >
+                                            <svg
+                                                    class="hi-mini hi-lock-closed inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    viewBox="0 0 20 20"
+                                                    fill="currentColor"
+                                                    aria-hidden="true"
+                                            >
+                                                <path
+                                                        fill-rule="evenodd"
+                                                        d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z"
+                                                        clip-rule="evenodd"
+                                                />
+                                            </svg>
+                                            {% translate 'Log out' %}
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Dropdown -->
+                    </div>
+                    <!-- END User Dropdown -->
+
+                    <!-- Toggle Mobile Navigation -->
+                    <div class="lg:hidden">
+                        <button
+                                x-on:click="mobileNavOpen = !mobileNavOpen"
+                                type="button"
+                                class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-3 py-2 text-sm leading-5 font-semibold text-gray-800 hover:border-gray-300 hover:text-gray-900 hover:shadow-xs focus:ring-3 focus:ring-gray-300/25 active:border-gray-200 active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-200 dark:focus:ring-gray-600/40 dark:active:border-gray-700"
+                        >
+                            <svg
+                                    fill="currentColor"
+                                    viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    class="hi-solid hi-menu inline-block size-5"
+                            >
+                                <path
+                                        fill-rule="evenodd"
+                                        d="M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z"
+                                        clip-rule="evenodd"
+                                ></path>
+                            </svg>
+                        </button>
+                    </div>
+                    <!-- END Toggle Mobile Navigation -->
+                </div>
+                <!-- END Right Section -->
             </div>
-            <!-- END Right Section -->
+
+            <!-- Mobile Navigation -->
+            <div x-cloak x-show="mobileNavOpen" class="lg:hidden">
+                <nav
+                        class="flex flex-col gap-2 border-t border-gray-200 py-4 dark:border-gray-700"
+                >
+                    <a
+                            href="javascript:void(0)"
+                            class="group flex items-center gap-2 rounded-lg border border-pink-50 bg-pink-50 px-3 py-2 text-sm font-semibold text-pink-600 dark:border-transparent dark:bg-gray-700/75 dark:text-white"
+                    >
+                        <span>Dashboard</span>
+                    </a>
+                    <a
+                            href="javascript:void(0)"
+                            class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                    >
+                        <span>Customers</span>
+                    </a>
+                    <a
+                            href="javascript:void(0)"
+                            class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                    >
+                        <span>Projects</span>
+                    </a>
+                    <a
+                            href="javascript:void(0)"
+                            class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                    >
+                        <span>Sales</span>
+                    </a>
+                </nav>
+            </div>
+            <!-- END Mobile Navigation -->
         </div>
     </header>
     <!-- END Page Header -->
 
     <!-- Page Content -->
-    {#    <main#}
-    {#            id="page-content"#}
-    {#            class="flex max-w-full flex-auto flex-col pt-16 lg:pt-0"#}
-    {#    >#}
-    {#        <!-- Page Section -->#}
-    {#        <div class="container mx-auto grow p-4 lg:p-8 xl:max-w-7xl">#}
-    {##}
-    {##}
-    {#        </div>#}
-    {#        <!-- END Page Section -->#}
-    {##}
-    {#        <!-- Placeholder -->#}
-    {#        <div#}
-    {#                class="container mx-auto flex w-full grow flex-col p-4 lg:p-8 xl:max-w-7xl"#}
-    {#        >#}
-    {#            <div#}
-    {#                    class="flex grow items-center justify-center rounded-xl border-2 border-dashed border-gray-200/75#}
-    {#                     text-gray-400 dark:border-gray-700/50"#}
-    {#            >#}
-    {##}
-    {#                {% block content %}#}
-    {##}
-    {#                {% endblock %}#}
-    {#            </div>#}
-    {#        </div>#}
-    {#        <!-- END Placeholder -->#}
-    {#    </main>#}
-    <!-- END Page Content -->
-    <!--Full Content by my own-->
-    <!-- Page Container -->
-    <div
-            id="page-container"
-            class="mx-auto flex min-h-dvh w-full min-w-80 flex-col bg-gray-100 dark:bg-gray-900 dark:text-gray-100"
-    >
-        <!-- Page Content -->
-        <main id="page-content" class="flex max-w-full flex-auto flex-col">
-            <!-- Page Section -->
-            <div class="mx-auto w-full max-w-10xl p-4 lg:p-8">
-                <!--
-
-                ADD YOUR MAIN CONTENT BELOW
-
-                -->
-
-                <!-- Placeholder -->
+    <main id="page-content" class="flex max-w-full flex-auto flex-col">
+        <!-- Page Heading -->
+        <div class="bg-gray-50 dark:bg-gray-800/50">
+            <div class="container mx-auto p-4 w-full">
                 <div
-                        class="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-64 text-gray-400 dark:border-gray-700 dark:bg-gray-800"
+                        class="space-y-2 py-2 text-center sm:flex sm:items-center sm:justify-between sm:space-y-0 sm:text-left lg:py-0"
                 >
-                    {% block content %}
-                    {% endblock %}
+                    <div class="grow">
+                        <h1 class="mb-1 text-xl font-bold">Dashboard</h1>
+                        <h2
+                                class="text-sm font-medium text-gray-500 dark:text-gray-400"
+                        >
+                            Welcome
+                            <a
+                                    href="javascript:void(0)"
+                                    class="text-pink-600 hover:text-pink-400 dark:text-pink-400 dark:hover:text-pink-300"
+                            >{{ user }}</a
+                            >, everything seems great!
+                        </h2>
+                    </div>
+                    <div
+                            class="flex flex-none items-center justify-center gap-2 rounded-sm px-2 py-3 sm:justify-end sm:bg-transparent sm:px-0"
+                    >
+                        <a
+                                href="javascript:void(0)"
+                                class="inline-flex items-center justify-center gap-2 rounded-lg border border-pink-700 bg-pink-700 px-3 py-2 text-sm leading-5 font-semibold text-white hover:border-pink-600 hover:bg-pink-600 hover:text-white focus:ring-3 focus:ring-pink-400/50 active:border-pink-700 active:bg-pink-700 dark:focus:ring-pink-400/90"
+                        >
+                            <svg
+                                    class="hi-mini hi-plus inline-block size-5 opacity-50"
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                    aria-hidden="true"
+                            >
+                                <path
+                                        d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"
+                                />
+                            </svg>
+                            <span>New Project</span>
+                        </a>
+                    </div>
                 </div>
-
-                <!--
-
-                ADD YOUR MAIN CONTENT ABOVE
-
-                -->
             </div>
-            <!-- END Page Section -->
-        </main>
-        <!-- END Page Content -->
-    </div>
-    <!-- END Page Container -->
+        </div>
+        <!-- END Page Heading -->
+
+        <!-- Page Section -->
+        <div class="container mx-auto p-4 w-full">
+            <!--
+
+            ADD YOUR MAIN CONTENT BELOW
+
+            -->
+
+            <!-- Placeholder -->
+            <div
+                    class="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-64 text-gray-400 dark:border-gray-700 dark:bg-gray-800"
+            >
+                {% block content %}
+                {% endblock %}
+            </div>
+
+            <!--
+
+            ADD YOUR MAIN CONTENT ABOVE
+
+            -->
+        </div>
+        <!-- END Page Section -->
+    </main>
+    <!-- END Page Content -->
 </div>
 <!-- END Page Container -->
+
 <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/focus@3.x.x/dist/cdn.min.js"></script>
 <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.8/dist/cdn.min.js"></script>
 </body>

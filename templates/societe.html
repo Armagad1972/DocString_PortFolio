@@ -13,12 +13,14 @@
             {% for societe in societes %}
                 <li class="flex items- p-4">
                     <a href="/societes/detail/{{ societe.id }}/">
-                        <span class="mr-1 text-sm text-purple-200 font-semibold"> {{ societe.nom }}</span></a>
-                    <span class="mr-1 text-sm text-purple-200 font-semibold"> {{ societe.users }}</span>
-                    <span class="mr-1 text-sm text-purple-200 font-semibold"> {{ societe.adresse }} </span>
+                        <span class="mr-1 text-sm font-semibold"> {{ societe.nom }}</span></a>
+                    <span class="mr-1 text-sm  font-semibold"> {{ societe.users }}</span>
+                    <span class="mr-1 text-sm  font-semibold"> {{ societe.adresse }} </span>
                     <span class="text-sm font-medium text-lime-100">{{ societe.ville | upper }} - {{ societe.pays.name | capfirst }}</span>
 
                 </li>
+            {% empty %}
+                <span class="text-red-500">Aucune société</span>
             {% endfor %}
         </ul>
         {% include 'partial/pagination.html' %}

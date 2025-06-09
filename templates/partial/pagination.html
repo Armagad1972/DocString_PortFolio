@@ -1,23 +1,6 @@
 {% load myrange_extras %}
 
 <div class="pagination">
-    {#            <span class="step-links">#}
-    {#                {% if page_obj.has_previous %}#}
-    {#                    <a href="?page=1">&laquo; 1</a>#}
-    {#                    <a href="?page={{ page_obj.previous_page_number }}"> précédent </a>#}
-    {#                {% endif %}#}
-    {##}
-    {#                <span class="current">#}
-    {#                    Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}.#}
-    {#                </span>#}
-    {##}
-    {#                {% if page_obj.has_next %}#}
-    {#                    <a href="?page={{ page_obj.next_page_number }}"> suivante </a>#}
-    {#                    <a href="?page={{ page_obj.paginator.num_pages }}"> dernière &raquo;</a>#}
-    {#                {% endif %}#}
-    {#            </span>#}
-
-
     <!-- Pagination: Simple -->
     <div class="text-center dark:text-gray-100">
         <!-- Visible on mobile -->
@@ -97,15 +80,19 @@
                 </a>
 
             {% endif %}
-            {% for i in page_obj.paginator.num_pages|get_range %}
-                <a
-                        href=?page={{ i }}
-                        class="{% if page_obj.number == i %}bg-indigo-700 text-white{% endif %}
+            {% if page_obj.paginator.num_pages == page_obj.number %}
+                <a class="hidden"></a>
+            {% else %}
+                {% for i in page_obj.paginator.num_pages|get_range %}
+                    <a
+                            href=?page={{ i }}
+                            class="{% if page_obj.number == i %}bg-pink-300 text-white{% endif %}
  -mr-px inline-flex items-center justify-center gap-2 border border-gray-200  px-4 py-2 leading-6 font-semibold text-gray-800 hover:z-1 hover:border-gray-300 hover:text-gray-900 hover:shadow-xs focus:z-1 focus:ring-3 focus:ring-gray-300/25 active:z-1 active:border-gray-200 active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-200 dark:focus:ring-gray-600/40 dark:active:border-gray-700"
-                >
-                    {{ i }}
-                </a>
-            {% endfor %}
+                    >
+                        {{ i }}
+                    </a>
+                {% endfor %}
+            {% endif %}
             {% if page_obj.has_next %}
                 <a
                         href="?page={{ page_obj.next_page_number }}"
