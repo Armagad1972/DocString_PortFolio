@@ -28,20 +28,13 @@
                             href="javascript:void(0)"
                             class="group inline-flex items-center gap-2 text-lg font-bold tracking-wide text-gray-900 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300"
                     >
-                        <svg
-                                class="hi-mini hi-cube-transparent inline-block size-5 text-pink-600 transition group-hover:scale-110 dark:text-pink-400"
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 20 20"
-                                fill="currentColor"
-                                aria-hidden="true"
-                        >
-                            <path
-                                    fill-rule="evenodd"
-                                    d="M9.638 1.093a.75.75 0 01.724 0l2 1.104a.75.75 0 11-.724 1.313L10 2.607l-1.638.903a.75.75 0 11-.724-1.313l2-1.104zM5.403 4.287a.75.75 0 01-.295 1.019l-.805.444.805.444a.75.75 0 01-.724 1.314L3.5 7.02v.73a.75.75 0 01-1.5 0v-2a.75.75 0 01.388-.657l1.996-1.1a.75.75 0 011.019.294zm9.194 0a.75.75 0 011.02-.295l1.995 1.101A.75.75 0 0118 5.75v2a.75.75 0 01-1.5 0v-.73l-.884.488a.75.75 0 11-.724-1.314l.806-.444-.806-.444a.75.75 0 01-.295-1.02zM7.343 8.284a.75.75 0 011.02-.294L10 8.893l1.638-.903a.75.75 0 11.724 1.313l-1.612.89v1.557a.75.75 0 01-1.5 0v-1.557l-1.612-.89a.75.75 0 01-.295-1.019zM2.75 11.5a.75.75 0 01.75.75v1.557l1.608.887a.75.75 0 01-.724 1.314l-1.996-1.101A.75.75 0 012 14.25v-2a.75.75 0 01.75-.75zm14.5 0a.75.75 0 01.75.75v2a.75.75 0 01-.388.657l-1.996 1.1a.75.75 0 11-.724-1.313l1.608-.887V12.25a.75.75 0 01.75-.75zm-7.25 4a.75.75 0 01.75.75v.73l.888-.49a.75.75 0 01.724 1.313l-2 1.104a.75.75 0 01-.724 0l-2-1.104a.75.75 0 11.724-1.313l.888.49v-.73a.75.75 0 01.75-.75z"
-                                    clip-rule="evenodd"
-                            />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                             class="text-sky-600 hi-micro hi-truck inline-block size-4">
+                            <path d="M2.908 2.067A.978.978 0 0 0 2 3.05V8h6V3.05a.978.978 0 0 0-.908-.983 32.481 32.481 0 0 0-4.184 0ZM12.919 4.722A.98.98 0 0 0 11.968 4H10a1 1 0 0 0-1 1v6.268A2 2 0 0 1 12 13h1a.977.977 0 0 0 .985-1 31.99 31.99 0 0 0-1.066-7.278Z"/>
+                            <path d="M11 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM2 12V9h6v3a1 1 0 0 1-1 1 2 2 0 1 0-4 0 1 1 0 0 1-1-1Z"/>
+                            <path d="M6 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>
                         </svg>
-                        <span>Company</span>
+                        <span>StreamLine Express</span>
                     </a>
                     <!-- END Logo -->
 
@@ -50,9 +43,9 @@
                         <a
                                 href='{% url 'societes' %}'
                                 class="{% if request.resolver_match.url_name == 'societes' %}
-              border border-pink-100 bg-pink-50 text-pink-600
+              border border-sky-100 bg-sky-50 text-sky-600
               {% else %}
-              border-transparent hover:bg-pink-50 hover:text-pink-600
+              border-transparent hover:bg-sky-50 hover:text-sky-600
               {% endif %}
  group flex items-center gap-2 rounded-lg  px-3 py-2 text-sm font-medium  dark:border-transparent dark:bg-gray-700 dark:text-white"
                         >
@@ -61,23 +54,23 @@
                         <a
                                 href='{% url 'magasins' %}'
                                 class="{% if request.resolver_match.url_name == 'magasins' %}
-              border border-pink-100 bg-pink-50 text-pink-600
+              border border-sky-100 bg-sky-50 text-sky-600
               {% else %}
-              border-transparent hover:bg-pink-50 hover:text-pink-600
+              border-transparent hover:bg-sky-50 hover:text-sky-600
               {% endif %}
-group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
                         >
                             <span>Magasins</span>
                         </a>
                         <a
                                 href="javascript:void(0)"
-                                class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                                class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
                         >
                             <span>Projects</span>
                         </a>
                         <a
                                 href="javascript:void(0)"
-                                class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                                class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
                         >
                             <span>Sales</span>
                         </a>
@@ -180,7 +173,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                                     <a
                                             role="menuitem"
                                             href="javascript:void(0)"
-                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-sky-50 hover:text-sky-800 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
                                     >
                                         <svg
                                                 class="hi-mini hi-inbox inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
@@ -197,7 +190,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                                         </svg>
                                         <span class="grow">Inbox</span>
                                         <div
-                                                class="inline-flex rounded-full border border-pink-200 bg-pink-100 px-1.5 py-0.5 text-xs leading-4 font-semibold text-pink-700 dark:border-pink-700 dark:bg-pink-700 dark:text-pink-50"
+                                                class="inline-flex rounded-full border border-sky-200 bg-sky-100 px-1.5 py-0.5 text-xs leading-4 font-semibold text-sky-700 dark:border-sky-700 dark:bg-sky-700 dark:text-sky-50"
                                         >
                                             2
                                         </div>
@@ -205,7 +198,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                                     <a
                                             role="menuitem"
                                             href="javascript:void(0)"
-                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-sky-50 hover:text-sky-800 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
                                     >
                                         <svg
                                                 class="hi-mini hi-flag inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
@@ -220,7 +213,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                                         </svg>
                                         <span class="grow">Notifications</span>
                                         <div
-                                                class="inline-flex rounded-full border border-pink-200 bg-pink-100 px-1.5 py-0.5 text-xs leading-4 font-semibold text-pink-700 dark:border-pink-700 dark:bg-pink-700 dark:text-pink-50"
+                                                class="inline-flex rounded-full border border-sky-200 bg-sky-100 px-1.5 py-0.5 text-xs leading-4 font-semibold text-sky-700 dark:border-sky-700 dark:bg-sky-700 dark:text-sky-50"
                                         >
                                             5
                                         </div>
@@ -230,7 +223,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                                     <a
                                             role="menuitem"
                                             href="javascript:void(0)"
-                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-sky-50 hover:text-sky-800 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
                                     >
                                         <svg
                                                 class="hi-mini hi-user-circle inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
@@ -250,7 +243,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                                     <a
                                             role="menuitem"
                                             href="javascript:void(0)"
-                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                            class="group flex items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-sm font-medium text-gray-700 hover:bg-sky-50 hover:text-sky-800 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
                                     >
                                         <svg
                                                 class="hi-mini hi-cog-6-tooth inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
@@ -274,7 +267,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                                         <button
                                                 type="submit"
                                                 role="menuitem"
-                                                class="group flex w-full items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-left text-sm font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-800 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
+                                                class="group flex w-full items-center justify-between gap-2 rounded-lg border border-transparent px-2.5 py-2 text-left text-sm font-medium text-gray-700 hover:bg-sky-50 hover:text-sky-800 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700/75 dark:hover:text-white dark:active:border-gray-600"
                                         >
                                             <svg
                                                     class="hi-mini hi-lock-closed inline-block size-5 flex-none opacity-25 group-hover:opacity-50"
@@ -332,25 +325,25 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                 >
                     <a
                             href="javascript:void(0)"
-                            class="group flex items-center gap-2 rounded-lg border border-pink-50 bg-pink-50 px-3 py-2 text-sm font-semibold text-pink-600 dark:border-transparent dark:bg-gray-700/75 dark:text-white"
+                            class="group flex items-center gap-2 rounded-lg border border-sky-50 bg-sky-50 px-3 py-2 text-sm font-semibold text-sky-600 dark:border-transparent dark:bg-gray-700/75 dark:text-white"
                     >
                         <span>Dashboard</span>
                     </a>
                     <a
                             href="javascript:void(0)"
-                            class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                            class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
                     >
                         <span>Customers</span>
                     </a>
                     <a
                             href="javascript:void(0)"
-                            class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                            class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
                     >
                         <span>Projects</span>
                     </a>
                     <a
                             href="javascript:void(0)"
-                            class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-pink-50 hover:text-pink-600 active:border-pink-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                            class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
                     >
                         <span>Sales</span>
                     </a>
@@ -377,7 +370,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                             Welcome
                             <a
                                     href="javascript:void(0)"
-                                    class="text-pink-600 hover:text-pink-400 dark:text-pink-400 dark:hover:text-pink-300"
+                                    class="text-sky-600 hover:text-sky-400 dark:text-sky-400 dark:hover:text-sky-300"
                             >{{ user }}</a
                             >, everything seems great!
                         </h2>
@@ -387,7 +380,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                     >
                         <a
                                 href="javascript:void(0)"
-                                class="inline-flex items-center justify-center gap-2 rounded-lg border border-pink-700 bg-pink-700 px-3 py-2 text-sm leading-5 font-semibold text-white hover:border-pink-600 hover:bg-pink-600 hover:text-white focus:ring-3 focus:ring-pink-400/50 active:border-pink-700 active:bg-pink-700 dark:focus:ring-pink-400/90"
+                                class="inline-flex items-center justify-center gap-2 rounded-lg border border-sky-700 bg-sky-700 px-3 py-2 text-sm leading-5 font-semibold text-white hover:border-sky-600 hover:bg-sky-600 hover:text-white focus:ring-3 focus:ring-sky-400/50 active:border-sky-700 active:bg-sky-700 dark:focus:ring-sky-400/90"
                         >
                             <svg
                                     class="hi-mini hi-plus inline-block size-5 opacity-50"
@@ -418,7 +411,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
 
             <!-- Placeholder -->
             <div
-                    class="flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-gray-50 py-64 text-gray-400 dark:border-gray-700 dark:bg-gray-800"
+                    class="h-full flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-sky-700 py-4 text-gray-400 dark:border-gray-700 dark:bg-gray-800"
             >
                 {% block content %}
                 {% endblock %}

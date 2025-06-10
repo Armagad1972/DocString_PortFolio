@@ -2,7 +2,7 @@
 
 <div class="pagination">
     <!-- Pagination: Simple -->
-    <div class="text-center dark:text-gray-100">
+    <div class="text-center mt-10 dark:text-gray-100">
         <!-- Visible on mobile -->
         <nav class="flex sm:hidden">
             {% if page_obj.has_previous %}
@@ -86,8 +86,8 @@
                 {% for i in page_obj.paginator.num_pages|get_range %}
                     <a
                             href=?page={{ i }}
-                            class="{% if page_obj.number == i %}bg-pink-300 text-white{% endif %}
- -mr-px inline-flex items-center justify-center gap-2 border border-gray-200  px-4 py-2 leading-6 font-semibold text-gray-800 hover:z-1 hover:border-gray-300 hover:text-gray-900 hover:shadow-xs focus:z-1 focus:ring-3 focus:ring-gray-300/25 active:z-1 active:border-gray-200 active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-200 dark:focus:ring-gray-600/40 dark:active:border-gray-700"
+                            class="{% if page_obj.number == i %} bg-lime-100 {% else %}bg-white{% endif %}
+ -mr-px inline-flex items-center justify-center gap-2 border border-gray-200 px-4 py-2 leading-6 font-semibold text-gray-800 hover:z-1 hover:border-gray-300 hover:text-gray-900 hover:shadow-xs focus:z-1 focus:ring-3 focus:ring-gray-300/25 active:z-1 active:border-gray-200 active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300 dark:hover:border-gray-600 dark:hover:text-gray-200 dark:focus:ring-gray-600/40 dark:active:border-gray-700"
                     >
                         {{ i }}
                     </a>

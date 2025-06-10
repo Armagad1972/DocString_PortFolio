@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView
 from accounts.forms import UserRegistrationForm
 from accounts.models import Societe, Magasin
 
@@ -13,6 +13,7 @@ def home(request):
     """
     This is the home view.
     """
+
     return render(request, 'home.html')
 
 
@@ -48,9 +49,10 @@ class SocieteListView(LoginRequiredMixin, ListView):
     """
     model = Societe
     template_name = 'societe.html'
-    ordering = ['users']
+    ordering = ['nom']
     context_object_name = 'societes'
-    paginate_by = 2
+
+    # paginate_by = 2
 
     # paginate_by = 3
     def get_queryset(self):
@@ -58,16 +60,9 @@ class SocieteListView(LoginRequiredMixin, ListView):
             return Societe.objects.all().order_by(*self.ordering)
         else:
             return Societe.objects.filter(users=self.request.user).order_by(*self.ordering)
-
-    def get_paginate_by(self, queryset):
-        # Dynamically set items per page, e.g., based on a query parameter
-        return self.request.GET.get('items_per_page', 2)
-
-
-class SocieteDetailView(LoginRequiredMixin, DetailView):
-    model = Societe
-    template_name = 'societe_detail.html'
-    context_object_name = 'societe'
+    # def get_paginate_by(self, queryset):
+    #     # Dynamically set items per page, e.g., based on a query parameter
+    #     return self.request.GET.get('items_per_page', 2)
 
 
 class MagasinListView(LoginRequiredMixin, ListView):
@@ -105,6 +100,9 @@ class MagasinListView(LoginRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.user.is_superuser:
             return Magasin.objects.all().order_by(*self.ordering)
+        elif self.request.user.groups.filter(name='Propriétaire').exists():
+            soc = Societe.objects.get(users=self.request.user)
+            return Magasin.objects.filter(societe=soc).order_by(*self.ordering)
         else:
             return Magasin.objects.filter(users=self.request.user).order_by(*self.ordering)
 
