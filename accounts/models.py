@@ -129,6 +129,7 @@ class Produit(models.Model):
     nom = models.CharField(max_length=255, help_text="Nom du produit")
     slug = models.SlugField(max_length=255, blank=True, null=True)
     ean = models.CharField(max_length=255, blank=True, null=True)
+    societe = models.ForeignKey(to=Societe, verbose_name="société", on_delete=models.CASCADE, related_name="produits")
     CreationDate = models.DateTimeField(auto_now_add=True)
     UpdateDate = models.DateTimeField(auto_now=True)
 

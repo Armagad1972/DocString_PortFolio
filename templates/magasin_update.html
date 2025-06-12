@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="w-full m-10 md:w-3/4 text-blue-500">
+        <form method="post">
+            {% csrf_token %}
+            {% if form.errors %}
+                {% for field in form %}
+                    {% for error in field.errors %}
+                        <div class="form-control text-error">
+                            <strong>{{ error }}</strong>
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            {% endif %}
+            {% for error in form.non_field_errors %}
+                <p class="text-danger">{{ error }}</p>
+            {% endfor %}
+            <div class="space-y-1 md:flex md:items-center md:gap-2 md:space-y-0 w-4/5">
+                <label for="nom" class="inline-block flex-none font-medium w-1/3 md:w-1/5 ">Nom du magasin</label>
+                {% render_field form.nom class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400" placeholder="Nom" %}
+            </div>
+            <div class="space-y-1 md:flex md:items-center md:gap-2 md:space-y-0 w-4/5">
+                <label for="adresse" class="inline-block flex-none font-medium w-1/3 md:w-1/5 ">Adresse</label>
+                {% render_field form.adresse class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-sky-500 focus:ring-3 focus:ring-sky-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-sky-500" placeholder="Adresse" %}
+            </div>
+            <div class="space-y-1 md:flex md:items-center md:gap-2 md:space-y-0 w-4/5">
+                <label for="ville"
+                       class="inline-block flex-none font-medium w-1/3 md:w-1/5 ">Ville</label>
+                {% render_field form.ville class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-sky-500 focus:ring-3 focus:ring-sky-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-sky-500" placeholder="Ville" %}
+            </div>
+            <div class="space-y-1 md:flex md:items-center md:gap-2 md:space-y-0 w-4/5">
+                <label for="pays"
+                       class="inline-block flex-none font-medium w-1/3 md:w-1/5 ">Pays</label>
+                {% render_field form.pays class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-sky-500 focus:ring-3 focus:ring-sky-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-sky-500" placeholder="Pays" %}
+            </div>
+            <div class="space-y-1 md:flex md:items-center md:gap-2 md:space-y-0 w-4/5">
+                <label for="societe" class="inline-block flex-none font-medium w-1/3 md:w-1/5 ">Société</label>
+                {% render_field form.societe class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-sky-500 focus:ring-3 focus:ring-sky-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-sky-500" placeholder="Societe" %}
+            </div>
+            <div class="space-y-1 md:flex md:items-center md:gap-2 md:space-y-0 w-4/5">
+                <label for="users"
+                       class="inline-block flex-none font-medium w-1/3 md:w-1/5 ">Magasiniers</label>
+                {% render_field form.users class+="block w-full rounded-lg border border-gray-200 px-3 py-2 leading-6 placeholder-gray-500 focus:border-sky-500 focus:ring-3 focus:ring-sky-500/50 dark:border-gray-700/75 dark:bg-gray-900 dark:placeholder-gray-400 dark:focus:border-sky-500" placeholder="Users" %}
+            </div>
+            <button type="submit"
+                    class="inline-flex items-center justify-center gap-2 rounded-lg border border-sky-700 bg-sky-700 px-6 py-3 leading-6 font-semibold text-white hover:border-sky-600 hover:bg-sky-600 hover:text-white focus:ring-3 focus:ring-sky-400/50 active:border-sky-700 active:bg-sky-700 dark:focus:ring-sky-400/90">
+                <span>Modifier</span>
+            </button>
+        </form>
+        <!-- END Responsive Table Container -->
+        <!-- END Tables: Bordered -->
+    </div>
+{% endblock %}

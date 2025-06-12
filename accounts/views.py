@@ -1,9 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.handlers.modwsgi import groups_for_user
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
-from accounts.forms import UserRegistrationForm
-from accounts.models import Societe, Magasin
+from django.views.generic import ListView, UpdateView
+from requests import request
+
+from accounts.forms import UserRegistrationForm, MagasinForm, ProduitForm
+from accounts.models import Societe, Magasin, Produit
 
 
 # Create your views here.
@@ -59,7 +62,12 @@ class SocieteListView(LoginRequiredMixin, ListView):
         if self.request.user.is_superuser:
             return Societe.objects.all().order_by(*self.ordering)
         else:
-            return Societe.objects.filter(users=self.request.user).order_by(*self.ordering)
+            dim = Societe.objects.filter(users=self.request.user).count()
+            if dim == 0:
+                return Societe.objects.none()
+            else:
+                return Societe.objects.filter(users=self.request.user).order_by(*self.ordering)
+
     # def get_paginate_by(self, queryset):
     #     # Dynamically set items per page, e.g., based on a query parameter
     #     return self.request.GET.get('items_per_page', 2)
@@ -109,3 +117,82 @@ class MagasinListView(LoginRequiredMixin, ListView):
     def get_paginate_by(self, queryset):
         # Dynamically set items per page, e.g., based on a query parameter
         return self.request.GET.get('items_per_page', 5)
+
+
+class MagasinUpdateView(UpdateView):
+    """
+    MagasinListView provides a view for listing Magasin objects restricted by user access.
+    """
+    model = Magasin
+    form_class = MagasinForm
+    template_name = 'magasin_update.html'
+    success_url = '/magasins/'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs
+
+
+class ProduitsListView(LoginRequiredMixin, ListView):
+    """
+    MagasinListView provides a view for listing Magasin objects restricted by user access.
+
+    This class-based view leverages Django's ListView framework to display a
+    list of Magasin objects that are filtered based on the current user's
+    associated Societe. It ensures that only authorized users can access this
+    view and dynamically manages pagination.
+
+    Attributes:
+    model: The model associated with the view, which in this case is Magasin.
+    template_name (str): The path to the HTML template used for rendering the view.
+    context_object_name (str): The name of the context variable that holds the list
+        of Magasin objects in the template.
+    ordering (list): Specifies the default ordering of Magasin objects based on
+        the `societe` attribute.
+
+    Methods:
+
+    get_queryset:
+        Returns a filtered QuerySet of Magasin objects for the currently
+        authenticated user.
+
+    get_paginate_by:
+        Returns the number of items per page for pagination, dynamically
+        determined from the request (15 by default).
+    """
+    model = Produit
+    template_name = 'produit.html'
+    context_object_name = 'produits'
+    ordering = ['societe']
+
+    def get_queryset(self, *args, **kwargs):
+
+        if self.request.user.is_superuser:
+            return Produit.objects.all().order_by(*self.ordering)
+        elif self.request.user.groups.filter(name='Propriétaire').exists():
+            soc = Societe.objects.get(users=self.request.user)
+            return Produit.objects.filter(societe=soc).order_by(*self.ordering)
+        else:
+            mag = Magasin.objects.filter(users=self.request.user).first()
+            soc = Societe.objects.get(magasins=mag)
+            return Produit.objects.filter(societe=soc).order_by(*self.ordering)
+
+    def get_paginate_by(self, queryset):
+        # Dynamically set items per page, e.g., based on a query parameter
+        return self.request.GET.get('items_per_page', 5)
+
+
+class ProduitUpdateView(UpdateView):
+    """
+    MagasinListView provides a view for listing Magasin objects restricted by user access.
+    """
+    model = Produit
+    form_class = ProduitForm
+    template_name = 'produit_update.html'
+    success_url = '/produits/'
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['request'] = self.request
+        return kwargs

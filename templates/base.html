@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static tailwind_tags %}
+{% load myrange_extras %}
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -25,7 +26,7 @@
                 <div class="flex items-center gap-2 lg:gap-6">
                     <!-- Logo -->
                     <a
-                            href="javascript:void(0)"
+                            href="{% url 'home' %}"
                             class="group inline-flex items-center gap-2 text-lg font-bold tracking-wide text-gray-900 hover:text-gray-600 dark:text-gray-100 dark:hover:text-gray-300"
                     >
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
@@ -40,17 +41,31 @@
 
                     <!-- Desktop Navigation -->
                     <nav class="hidden items-center gap-2 lg:flex">
-                        <a
-                                href='{% url 'societes' %}'
-                                class="{% if request.resolver_match.url_name == 'societes' %}
+                        {% if user|has_group:'Admin' %}
+                            <a
+                                    href='{% url 'admin:index' %}'
+                                    class="{% if request.resolver_match.url_name == 'admin' %}
               border border-sky-100 bg-sky-50 text-sky-600
-              {% else %}
+                                            {% else %}
               border-transparent hover:bg-sky-50 hover:text-sky-600
-              {% endif %}
+                                            {% endif %}
  group flex items-center gap-2 rounded-lg  px-3 py-2 text-sm font-medium  dark:border-transparent dark:bg-gray-700 dark:text-white"
-                        >
-                            <span>Sociétés</span>
-                        </a>
+                            >
+                                <span>Admin</span>
+                            </a>   {% endif %}
+                        {% if user|has_group:'Propriétaire' %}
+                            <a
+                                    href='{% url 'societes' %}'
+                                    class="{% if request.resolver_match.url_name == 'societes' %}
+              border border-sky-100 bg-sky-50 text-sky-600
+                                          {% else %}
+              border-transparent hover:bg-sky-50 hover:text-sky-600
+                                          {% endif %}
+ group flex items-center gap-2 rounded-lg  px-3 py-2 text-sm font-medium  dark:border-transparent dark:bg-gray-700 dark:text-white"
+                            >
+                                <span>Sociétés</span>
+                            </a>
+                        {% endif %}
                         <a
                                 href='{% url 'magasins' %}'
                                 class="{% if request.resolver_match.url_name == 'magasins' %}
@@ -63,10 +78,15 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                             <span>Magasins</span>
                         </a>
                         <a
-                                href="javascript:void(0)"
-                                class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                                href="{% url 'produits' %}"
+                                class="{% if request.resolver_match.url_name == 'produits' %}
+              border border-sky-100 bg-sky-50 text-sky-600
+              {% else %}
+              border-transparent hover:bg-sky-50 hover:text-sky-600
+              {% endif %}
+group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
                         >
-                            <span>Projects</span>
+                            <span>Produits</span>
                         </a>
                         <a
                                 href="javascript:void(0)"
@@ -170,6 +190,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                                     class="divide-y divide-gray-100 rounded-lg bg-white ring-1 ring-black/5 dark:divide-gray-700 dark:bg-gray-800 dark:ring-gray-700"
                             >
                                 <div class="space-y-1 p-2.5">
+                                    <img src='https://avatar.iran.liara.run/public/boy' alt='Random Profile'>
                                     <a
                                             role="menuitem"
                                             href="javascript:void(0)"
@@ -363,7 +384,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                         class="space-y-2 py-2 text-center sm:flex sm:items-center sm:justify-between sm:space-y-0 sm:text-left lg:py-0"
                 >
                     <div class="grow">
-                        <h1 class="mb-1 text-xl font-bold">Dashboard</h1>
+                        <h1 class="mb-1 text-xl font-bold">{% translate 'Dashboard' %}</h1>
                         <h2
                                 class="text-sm font-medium text-gray-500 dark:text-gray-400"
                         >
@@ -411,7 +432,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
 
             <!-- Placeholder -->
             <div
-                    class="h-full flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-sky-700 py-4 text-gray-400 dark:border-gray-700 dark:bg-gray-800"
+                    class="h-full flex items-center justify-center rounded-xl border-2 border-dashed border-gray-200 bg-stone-50 py-4 text-gray-400 dark:border-gray-700 dark:bg-gray-800"
             >
                 {% block content %}
                 {% endblock %}
