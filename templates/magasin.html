@@ -1,0 +1,97 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="w-full h-auto m-10 md:w-3/4">
+        <div
+                class="min-w-full overflow-x-auto rounded-sm border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
+        >
+            <!-- Table -->
+            <table class="min-w-full align-middle text-sm whitespace-nowrap">
+                <!-- Table Header -->
+                <thead>
+                <tr class="border-b border-gray-100 dark:border-gray-700/50">
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-center font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Société
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Nom
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Adresse
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Ville
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-center font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Utilisateurs
+                    </th>
+                    <th
+                            class="bg-blue-200/75 px-3 py-4 text-center font-semibold border-l-1 border-dotted border-gray-800 text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Modifier
+                    </th>
+                </tr>
+                </thead>
+                <!-- END Table Header -->
+
+                <!-- Table Body -->
+                <tbody>
+                {% for magasin in magasins %}
+                    <tr class="border-b border-gray-100 dark:border-gray-700/50">
+                        <td class="p-3 text-center">
+                            {{ magasin.societe_id }}-{{ magasin.societe | upper }}
+                        </td>
+                        <td class="p-3">
+                            {{ magasin.nom | capfirst }}
+                        </td>
+                        <td class="p-3 text-gray-500 dark:text-gray-400">
+                            {{ magasin.adresse | lower }}
+                        </td>
+                        <td class="p-3">
+                            {{ magasin.ville | capfirst }}
+                        </td>
+                        <td class="p-3">
+                            <ul>
+                                {% for i in magasin.users.all %}
+                                    <li>{{ i.fname | capfirst }} {{ i.lname | capfirst }}</li>
+                                {% endfor %}</ul>
+                        </td>
+                        <td class="border-l-1 border-dotted border-gray-800 p-3 text-center">
+                            <button
+                                    type="submit"
+                                    class="inline-flex items-center justify-center gap-2 rounded-lg border border-gray-200 bg-white px-2 py-1 text-sm leading-5
+                                     font-semibold text-gray-800 hover:border-gray-300 hover:text-gray-900 hover:shadow-xs focus:ring-3
+                                     focus:ring-gray-300/25 active:border-gray-200 active:shadow-none dark:border-gray-700 dark:bg-gray-800 dark:text-gray-300
+                                     dark:hover:border-gray-600 dark:hover:text-gray-200 dark:focus:ring-gray-600/40 dark:active:border-gray-700"
+                                    onclick="window.location.href='{% url 'magasin_edit' magasin.id %}'">
+                                {% translate 'Edit' %}
+                            </button>
+                        </td>
+                    </tr>
+                {% empty %}
+
+                    <span class="text-red-500">Aucun magasin</span>
+                {% endfor %}
+                </tbody>
+                <!-- END Table Body -->
+            </table>
+            <!-- END Table -->
+        </div>
+        <!-- END Responsive Table Container -->
+        <!-- END Tables: Bordered -->
+
+        {% include 'partial/pagination.html' %}
+    </div>
+{% endblock %}

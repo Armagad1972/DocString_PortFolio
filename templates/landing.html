@@ -14,30 +14,17 @@
 <body>
 <div class="flex min-h-dvh w-full">
     <div
-            class="flex w-full flex-col justify-between gap-6 overflow-hidden bg-stone-100 p-6 lg:w-2/5 dark:bg-neutral-900 dark:text-gray-100"
+            class="flex w-full flex-col justify-between gap-6 overflow-hidden bg-sky-100/10 p-6 lg:w-2/5 dark:bg-neutral-900 dark:text-gray-100"
     >
         <div class="flex-none text-center lg:text-left">
             <div class="inline-flex items-center gap-1.5 text-sm font-semibold">
-                <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 73 49"
-                        class="size-7"
-                >
-                    <path
-                            fill="#38bdf8"
-                            d="M46.868 24c0 12.426-10.074 22.5-22.5 22.5-12.427 0-22.5-10.074-22.5-22.5S11.94 1.5 24.368 1.5c12.426 0 22.5 10.074 22.5 22.5Z"
-                    />
-                    <path
-                            fill="#a855f7"
-                            d="M71.132 24c0 12.426-9.975 22.5-22.28 22.5-12.304 0-22.278-10.074-22.278-22.5S36.547 1.5 48.852 1.5c12.304 0 22.28 10.074 22.28 22.5Z"
-                    />
-                    <path
-                            fill="#6b21a8"
-                            d="M36.67 42.842C42.81 38.824 46.868 31.886 46.868 24c0-7.886-4.057-14.824-10.198-18.841A22.537 22.537 0 0 0 26.573 24 22.537 22.537 0 0 0 36.67 42.842Z"
-                    />
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor"
+                     class="text-sky-500 hi-micro hi-truck inline-block size-4">
+                    <path d="M2.908 2.067A.978.978 0 0 0 2 3.05V8h6V3.05a.978.978 0 0 0-.908-.983 32.481 32.481 0 0 0-4.184 0ZM12.919 4.722A.98.98 0 0 0 11.968 4H10a1 1 0 0 0-1 1v6.268A2 2 0 0 1 12 13h1a.977.977 0 0 0 .985-1 31.99 31.99 0 0 0-1.066-7.278Z"/>
+                    <path d="M11 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0ZM2 12V9h6v3a1 1 0 0 1-1 1 2 2 0 1 0-4 0 1 1 0 0 1-1-1Z"/>
+                    <path d="M6 13a1 1 0 1 1-2 0 1 1 0 0 1 2 0Z"/>
                 </svg>
-                <span>Circles AI</span>
+                <h1 class="text-md lg:text-lg">StreamLine Express</h1>
             </div>
         </div>
         <div
@@ -51,15 +38,15 @@
         <div
                 class="flex-none text-center text-xs text-gray-500 lg:text-left dark:text-gray-400"
         >
-            <span class="font-medium">Circles AI &copy;</span>
-            Built with love
+            <span class="font-medium">StreamLine Express@</span>
+            {% now "Y" %}
         </div>
     </div>
 
     <div class="hidden w-3/5 bg-white p-6 lg:block dark:bg-gray-900">
         <div class="relative h-full w-full">
             <div
-                    class="absolute inset-0 z-1 rounded-3xl bg-linear-to-br from-purple-600/90 to-sky-600/90 mix-blend-overlay"
+                    class="absolute inset-0 z-1 rounded-3xl bg-linear-to-br from-sky-600/90 to-sky-600/90 mix-blend-overlay"
             ></div>
             <img
                     src="{% static 'img/warehouse.jpg ' %}"
