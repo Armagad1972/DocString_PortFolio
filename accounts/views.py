@@ -1,9 +1,7 @@
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.handlers.modwsgi import groups_for_user
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, UpdateView
-from requests import request
 
 from accounts.forms import UserRegistrationForm, MagasinForm, ProduitForm
 from accounts.models import Societe, Magasin, Produit
@@ -55,22 +53,24 @@ class SocieteListView(LoginRequiredMixin, ListView):
     ordering = ['nom']
     context_object_name = 'societes'
 
-    # paginate_by = 2
-
-    # paginate_by = 3
     def get_queryset(self):
         if self.request.user.is_superuser:
             return Societe.objects.all().order_by(*self.ordering)
         else:
             dim = Societe.objects.filter(users=self.request.user).count()
             if dim == 0:
+                self.request.user.user_permissions.none()
                 return Societe.objects.none()
             else:
                 return Societe.objects.filter(users=self.request.user).order_by(*self.ordering)
 
-    # def get_paginate_by(self, queryset):
-    #     # Dynamically set items per page, e.g., based on a query parameter
-    #     return self.request.GET.get('items_per_page', 2)
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.groups.filter(name='Magasinier').exists():
+            return render(request, '403.html', status=403)
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_template_names(self):
+        return self.template_name
 
 
 class MagasinListView(LoginRequiredMixin, ListView):

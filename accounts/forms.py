@@ -39,6 +39,7 @@ class MagasinForm(forms.ModelForm):
             else:
                 soc = Societe.objects.filter(users=currentuser)
             self.fields['societe'].queryset = Societe.objects.filter(id__in=soc.values_list('id', flat=True))
+            self.fields['societe'].widget.attrs['disabled'] = True
         else:
             self.fields['societe'].queryset = Societe.objects.none()
 
