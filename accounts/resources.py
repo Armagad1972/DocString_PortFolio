@@ -1,4 +1,4 @@
-from .models import Societe, Magasin, Produit
+from .models import Societe, Magasin, Produit, Stock
 from import_export import resources
 
 
@@ -15,3 +15,8 @@ class MagasinResource(resources.ModelResource):
 class ProduitResource(resources.ModelResource):
     class Meta:
         model = Produit
+
+
+class StockResource(resources.ModelResource):
+    class Meta:
+        model = Stock

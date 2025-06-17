@@ -1,12 +1,10 @@
 from django.contrib import admin
 from .models import Societe, Magasin, Produit, Stock, Mouvements, JadUser
-from .resources import SocieteResource, MagasinResource, ProduitResource
+from .resources import SocieteResource, MagasinResource, ProduitResource, StockResource
 from import_export.admin import ImportExportModelAdmin
 
 # Register your models here.
 admin.site.register(JadUser)
-
-admin.site.register(Stock)
 
 admin.site.register(Mouvements)
 
@@ -27,3 +25,9 @@ class MagasinAdmin(ImportExportModelAdmin):
 class ProduitAdmin(ImportExportModelAdmin):
     resource_class = ProduitResource
     list_display = ['id', 'nom', 'slug', 'CreationDate', 'UpdateDate']
+
+
+@admin.register(Stock)
+class StockAdmin(ImportExportModelAdmin):
+    resource_class = StockResource
+    list_display = ['id', 'produit', 'magasin', 'quantite', 'seuil', 'alerte']

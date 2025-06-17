@@ -89,10 +89,16 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                             <span>Produits</span>
                         </a>
                         <a
-                                href="javascript:void(0)"
-                                class="group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+                                href="{% url 'stocks' %}"
+                                class="{% if request.resolver_match.url_name == 'stocks' %}
+              border border-sky-100 bg-sky-50 text-sky-600
+              {% else %}
+              border-transparent hover:bg-sky-50 hover:text-sky-600
+              {% endif %}
+              group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 text-sm font-medium text-gray-800 hover:bg-sky-50 hover:text-sky-600 active:border-sky-100 dark:text-gray-200 dark:hover:bg-gray-700 dark:hover:text-white dark:active:border-gray-600"
+
                         >
-                            <span>Sales</span>
+                            <span>Stocks</span>
                         </a>
                     </nav>
                     <!-- END Desktop Navigation -->
@@ -100,7 +106,7 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                 <!-- END Left Section -->
 
                 <!-- Right Section -->
-                <div class="flex items-center gap-2">
+                <div class=" flex items-center gap-2">
                     <!-- Notifications -->
                     <a
                             href="javascript:void(0)"
@@ -190,7 +196,9 @@ group flex items-center gap-2 rounded-lg border border-transparent px-3 py-2 tex
                                     class="divide-y divide-gray-100 rounded-lg bg-white ring-1 ring-black/5 dark:divide-gray-700 dark:bg-gray-800 dark:ring-gray-700"
                             >
                                 <div class="space-y-1 p-2.5">
-                                    <img src='https://avatar.iran.liara.run/public/boy' alt='Random Profile'>
+                                    <img src='https://ui-avatars.com/api/?name={{ user.fname }}+{{ user.lname }}&size=48&background=random'
+                                         alt='Random Profile'
+                                         class='rounded-full'>
                                     <a
                                             role="menuitem"
                                             href="javascript:void(0)"
