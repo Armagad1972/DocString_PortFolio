@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static tailwind_tags %}
+{% load i18n %}
+{% load widget_tweaks %}
+{% block content %}
+    <div class="w-full h-auto m-10 md:w-3/4">
+        <div
+                class="min-w-full overflow-x-auto rounded-sm border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
+        >
+            <!-- Table -->
+            <table class="min-w-full align-middle text-sm whitespace-nowrap">
+                <!-- Table Header -->
+                <thead>
+                <tr class="border-b border-gray-100 dark:border-gray-700/50">
+                    {#                    <th#}
+                    {#                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"#}
+                    {#                    >#}
+                    {#                        Ean#}
+                    {#                    </th>#}
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Produit
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Magasin
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Quantité en stock
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Seuil critique par magasin
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Actions à prendre
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Dernière MAJ
+                    </th>
+                </tr>
+                </thead>
+                <!-- END Table Header -->
+
+                <!-- Table Body -->
+                <tbody>
+                {% for stock in stocks %}
+                    <tr class="border-b border-gray-100 dark:border-gray-700/50">
+                        <td class="p-3">
+                            {{ stock.produit.ean }} - {{ stock.produit.nom }}
+                        </td>
+                        <td class="p-3">
+                            {{ stock.magasin }}
+                        </td>
+                        <td class="p-3 text-gray-500 dark:text-gray-400">
+                            {{ stock.quantite }}
+                        </td>
+                        <td class="p-3 text-gray-500 dark:text-gray-400">
+                            {{ stock.seuil }}
+                        </td>
+                        <td class="p-3 {% if stock.alerte %} text-red-800 bg-red-300 {% elif stock.per_alerte < 50 %}text-orange-800 bg-orange-300
+                    {% elif stock.per_alerte >= 50 and stock.per_alerte <=  100 %} text-teal-800 bg-teal-300 {% else %}
+                        text-violet-800 bg-violet-300 {% endif %}">
+                            {% if stock.alerte %}
+                                <span class="">Urgence commande</span>
+                            {% elif stock.per_alerte < 50 %}
+                                <span class="">Stock Limité </span>
+                            {% elif stock.per_alerte >= 50 and stock.per_alerte <=  100 %}
+                                <span class="">Stock suffisant</span>
+                            {% else %}
+                                <span class=""> Surplus : {{ stock.per_alerte |floatformat:2 }} %</span>
+                            {% endif %}
+                        </td>
+                        <td class="p-3 text-gray-500 dark:text-gray-400">
+                            {{ stock.date }}
+                        </td>
+                    </tr>
+                {% empty %}
+
+                    <span class="text-red-500">Aucun produit</span>
+                {% endfor %}
+                </tbody>
+                <!-- END Table Body -->
+            </table>
+            <!-- END Table -->
+        </div>
+        <!-- END Responsive Table Container -->
+        <!-- END Tables: Bordered -->
+
+        {% include 'partial/pagination.html' %}
+    </div>
+{% endblock %}

@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.views.generic import detail
 
-from accounts.views import SocieteListView, MagasinListView, ProduitsListView, MagasinUpdateView, ProduitUpdateView
+from accounts.views import SocieteListView, MagasinListView, ProduitsListView, MagasinUpdateView, ProduitUpdateView, \
+    StocksListView
 from accounts import views
 
 urlpatterns = [
@@ -31,4 +32,5 @@ urlpatterns = [
     path('magasin/<int:pk>/edit', MagasinUpdateView.as_view(model=views.Magasin), name="magasin_edit"),
     path('produits/', ProduitsListView.as_view(), name="produits"),
     path('produits/<int:pk>/edit', ProduitUpdateView.as_view(model=views.Produit), name="produit_edit"),
+    path('stocks/', StocksListView.as_view(), name="stocks"),
 ]
