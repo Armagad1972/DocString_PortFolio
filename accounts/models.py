@@ -147,7 +147,7 @@ class Produit(models.Model):
     def save(self, *args, **kwargs):
         if not self.slug:
             self.slug = slugify(self.nom)
-            super().save(*args, **kwargs)
+        super().save(*args, **kwargs)
 
 
 class Stock(models.Model):
@@ -155,18 +155,15 @@ class Stock(models.Model):
     magasin = models.ForeignKey(to=Magasin, verbose_name="magasin", on_delete=models.RESTRICT, related_name="stock")
     quantite = models.IntegerField(
         verbose_name="quantité",
-        validators=[MinValueValidator(0)]
     )
     seuil = models.IntegerField(
         verbose_name="seuil",
-        default=0,
-        validators=[MinValueValidator(0)]
     )
     alerte = models.BooleanField(
         verbose_name="alerte",
         default=False
     )
-    date = models.DateTimeField(auto_now_add=True)
+    date = models.DateTimeField(auto_now=True)
 
     def __str__(self):
         return f"{self.produit} - {self.magasin}-{self.quantite}"
@@ -182,7 +179,9 @@ class Stock(models.Model):
     def save(self, *args, **kwargs):
         if self.quantite < self.seuil:
             self.alerte = True
-            super().save(*args, **kwargs)
+        else:
+            self.alerte = False
+        super().save(*args, **kwargs)
 
 
 class Mouvements(models.Model):

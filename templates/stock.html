@@ -28,14 +28,24 @@
                         Magasin
                     </th>
                     <th
-                            class="bg-blue-200/75 px-3 py-4 text-center font-semibold border-l-1 border-dotted border-gray-800 text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
                     >
                         Quantité en stock
                     </th>
                     <th
-                            class="bg-blue-200/75 px-3 py-4 text-center font-semibold border-l-1 border-dotted border-gray-800 text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
                     >
                         Seuil critique par magasin
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Actions à prendre
+                    </th>
+                    <th
+                            class="bg-blue-100/75 px-3 py-4 text-left font-semibold text-gray-900 dark:bg-gray-700/25 dark:text-gray-50"
+                    >
+                        Dernière MAJ
                     </th>
                 </tr>
                 </thead>
@@ -45,8 +55,8 @@
                 <tbody>
                 {% for stock in stocks %}
                     <tr class="border-b border-gray-100 dark:border-gray-700/50">
-                        <td class="p-3 text-center">
-                            {{ stock.produit }}
+                        <td class="p-3">
+                            {{ stock.produit.ean }} - {{ stock.produit.nom }}
                         </td>
                         <td class="p-3">
                             {{ stock.magasin }}
@@ -57,14 +67,21 @@
                         <td class="p-3 text-gray-500 dark:text-gray-400">
                             {{ stock.seuil }}
                         </td>
-                        <td class="p-3 {% if stock.alerte %} text-pink-500 bg-pink-200 {% elif stock.per_alerte < 50 %}text-amber-500 bg-amber-200{% endif %}">
+                        <td class="p-3 {% if stock.alerte %} text-red-800 bg-red-300 {% elif stock.per_alerte < 50 %}text-orange-800 bg-orange-300
+                    {% elif stock.per_alerte >= 50 and stock.per_alerte <=  100 %} text-teal-800 bg-teal-300 {% else %}
+                        text-violet-800 bg-violet-300 {% endif %}">
                             {% if stock.alerte %}
                                 <span class="">Urgence commande</span>
                             {% elif stock.per_alerte < 50 %}
-                                <span class="">Stock Limité</span>
+                                <span class="">Stock Limité </span>
+                            {% elif stock.per_alerte >= 50 and stock.per_alerte <=  100 %}
+                                <span class="">Stock suffisant</span>
                             {% else %}
-                                <span class="">{{ stock.per_alerte |floatformat:2 }} %</span>
+                                <span class=""> Surplus : {{ stock.per_alerte |floatformat:2 }} %</span>
                             {% endif %}
+                        </td>
+                        <td class="p-3 text-gray-500 dark:text-gray-400">
+                            {{ stock.date }}
                         </td>
                     </tr>
                 {% empty %}

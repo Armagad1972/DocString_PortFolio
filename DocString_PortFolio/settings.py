@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'tailwind',
     'theme',
     'widget_tweaks',
+    'chartjs',
     'accounts.apps.AccountsConfig',
     'django_countries'
 ]

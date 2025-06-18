@@ -20,3 +20,5 @@ class ProduitResource(resources.ModelResource):
 class StockResource(resources.ModelResource):
     class Meta:
         model = Stock
+        import_id_fields = ['id']
+        fields = ['id', 'produit', 'magasin', 'quantite', 'seuil']

@@ -116,7 +116,7 @@ class MagasinListView(LoginRequiredMixin, ListView):
 
     def get_paginate_by(self, queryset):
         # Dynamically set items per page, e.g., based on a query parameter
-        return self.request.GET.get('items_per_page', 5)
+        return self.request.GET.get('items_per_page', 12)
 
 
 class MagasinUpdateView(UpdateView):
@@ -180,7 +180,7 @@ class ProduitsListView(LoginRequiredMixin, ListView):
 
     def get_paginate_by(self, queryset):
         # Dynamically set items per page, e.g., based on a query parameter
-        return self.request.GET.get('items_per_page', 5)
+        return self.request.GET.get('items_per_page', 12)
 
 
 class ProduitUpdateView(UpdateView):
@@ -239,9 +239,9 @@ class StocksListView(LoginRequiredMixin, ListView):
             magasins = Magasin.objects.filter(societe=soc)
             return Stock.objects.filter(magasin__in=magasins).order_by(*self.ordering)
         else:
-            mag = Magasin.objects.filter(users=self.request.user).first()
-            return Stock.objects.filter(magasin=mag).order_by(*self.ordering)
-
+            mag = Magasin.objects.filter(users=self.request.user)
+            return Stock.objects.filter(magasin__in=mag).order_by(*self.ordering)
+        
     def get_paginate_by(self, queryset):
         # Dynamically set items per page, e.g., based on a query parameter
-        return self.request.GET.get('items_per_page', 7)
+        return self.request.GET.get('items_per_page', 12)
