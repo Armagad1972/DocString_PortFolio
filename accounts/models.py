@@ -125,8 +125,8 @@ class Magasin(models.Model):
         return self.nom
 
     def get_societe(self):
-        soc = Magasin.objects.get(id=self.id).societe
-        return soc.id, soc.nom
+        soc = Magasin.objects.get(self.societe)
+        return soc
 
 
 class Produit(models.Model):
@@ -164,6 +164,11 @@ class Stock(models.Model):
         default=False
     )
     date = models.DateTimeField(auto_now=True)
+    obsolete = models.BooleanField(
+        verbose_name="obsolete",
+        default=False,
+        help_text="Cette option permet de retirer un produit du stock."
+    )
 
     def __str__(self):
         return f"{self.produit} - {self.magasin}-{self.quantite}"
@@ -174,13 +179,20 @@ class Stock(models.Model):
         unique_together = ['produit', 'magasin']
 
     def per_alerte(self):
-        return (self.quantite - self.seuil) / self.seuil * 100
+        if self.obsolete:
+            return 0
+        else:
+            return (self.quantite - self.seuil) / self.seuil * 100
 
     def save(self, *args, **kwargs):
         if self.quantite < self.seuil:
             self.alerte = True
         else:
             self.alerte = False
+        if self.seuil == int(0):
+            self.obsolete = True
+        else:
+            self.obsolete = False
         super().save(*args, **kwargs)
 
 
