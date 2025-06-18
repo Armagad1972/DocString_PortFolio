@@ -3,7 +3,7 @@
 {% load i18n %}
 {% load widget_tweaks %}
 {% block content %}
-    <div class="w-full h-auto m-10 md:w-3/4">
+    <div class="w-full h-auto m-10">
         <div
                 class="min-w-full overflow-x-auto rounded-sm border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-800"
         >
@@ -54,11 +54,11 @@
                 <!-- Table Body -->
                 <tbody>
                 {% for stock in stocks %}
-                    <tr class="border-b border-gray-100 dark:border-gray-700/50">
+                    <tr class="border-b border-gray-100 dark:border-gray-700/50 {% if stock.obsolete %}text-pink-800 bg-pink-300 {% endif %} ">
                         <td class="p-3">
                             {{ stock.produit.ean }} - {{ stock.produit.nom }}
                         </td>
-                        <td class="p-3">
+                        <td class="p-3 font-bold">
                             {{ stock.magasin }}
                         </td>
                         <td class="p-3 text-gray-500 dark:text-gray-400">
@@ -67,15 +67,17 @@
                         <td class="p-3 text-gray-500 dark:text-gray-400">
                             {{ stock.seuil }}
                         </td>
-                        <td class="p-3 {% if stock.alerte %} text-red-800 bg-red-300 {% elif stock.per_alerte < 50 %}text-orange-800 bg-orange-300
-                    {% elif stock.per_alerte >= 50 and stock.per_alerte <=  100 %} text-teal-800 bg-teal-300 {% else %}
-                        text-violet-800 bg-violet-300 {% endif %}">
+                        <td class="p-3 {% if stock.alerte %} text-red-800 bg-red-300 {% elif stock.per_alerte != 0 and stock.per_alerte < 50 %}text-orange-800 bg-orange-300
+                    {% elif stock.per_alerte >= 50 and stock.per_alerte <=  100 %} text-teal-800 bg-teal-300 {% elif stock.obsolete %} text-pink-800
+                    {% else %}text-violet-800 bg-violet-300 {% endif %}">
                             {% if stock.alerte %}
                                 <span class="">Urgence commande</span>
-                            {% elif stock.per_alerte < 50 %}
+                            {% elif stock.per_alerte != 0 and stock.per_alerte < 50 %}
                                 <span class="">Stock Limité </span>
                             {% elif stock.per_alerte >= 50 and stock.per_alerte <=  100 %}
                                 <span class="">Stock suffisant</span>
+                            {% elif stock.obsolete %}
+                                <span class="">Stock à scrapper ?</span>
                             {% else %}
                                 <span class=""> Surplus : {{ stock.per_alerte |floatformat:2 }} %</span>
                             {% endif %}

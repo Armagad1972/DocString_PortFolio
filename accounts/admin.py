@@ -30,4 +30,4 @@ class ProduitAdmin(ImportExportModelAdmin):
 @admin.register(Stock)
 class StockAdmin(ImportExportModelAdmin):
     resource_class = StockResource
-    list_display = ['id', 'produit', 'magasin', 'quantite', 'seuil', 'alerte']
+    list_display = ['id', 'produit', 'magasin', 'quantite', 'seuil', 'alerte', 'obsolete']
