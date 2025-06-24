@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django import forms
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, UpdateView
 
@@ -130,7 +131,9 @@ class MagasinUpdateView(UpdateView):
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
-        kwargs['request'] = self.request
+        instance = kwargs.get('instance')
+        if instance:
+            kwargs['societe'] = instance.societe.nom
         return kwargs
 
 

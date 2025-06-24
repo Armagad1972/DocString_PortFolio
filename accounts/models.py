@@ -125,8 +125,10 @@ class Magasin(models.Model):
         return self.nom
 
     def get_societe(self):
-        soc = Magasin.objects.get(self.societe)
-        return soc
+        return self.societe
+
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
 
 
 class Produit(models.Model):
