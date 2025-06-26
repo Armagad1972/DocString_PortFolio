@@ -34,8 +34,8 @@ class MagasinForm(forms.ModelForm):
 
     def __init__(self, societe, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields["societe"].queryset = Magasin.objects.filter(societe__nom=societe)
-        self.fields['societe'].widget = forms.TextInput(attrs={'value': societe, 'readonly': True})
+        self.fields["societe"].queryset = Societe.objects.filter(nom=societe)
+        self.fields["societe"].disabled = True
 
 
 class ProduitForm(forms.ModelForm):
