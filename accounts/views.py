@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django import forms
+from django.urls import reverse_lazy
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, UpdateView
 
@@ -58,12 +58,13 @@ class SocieteListView(LoginRequiredMixin, ListView):
         if self.request.user.is_superuser:
             return Societe.objects.all().order_by(*self.ordering)
         else:
-            dim = Societe.objects.filter(users=self.request.user).count()
-            if dim == 0:
+            user_societes = Societe.objects.filter(users=self.request.user) # Optimisation une requête
+            if user_societes.exists(): # Utilisation de exists() pour vérifier l'existence
+                # Redis moi si c'est bien ça que tu attendais
+                return user_societes.order_by(*self.ordering)
+            else:
                 self.request.user.user_permissions.none()
                 return Societe.objects.none()
-            else:
-                return Societe.objects.filter(users=self.request.user).order_by(*self.ordering)
 
     def dispatch(self, request, *args, **kwargs):
         if self.request.user.groups.filter(name='Magasinier').exists():
@@ -127,14 +128,7 @@ class MagasinUpdateView(UpdateView):
     model = Magasin
     form_class = MagasinForm
     template_name = 'magasin_update.html'
-    success_url = '/magasins/'
-
-    def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
-        instance = kwargs.get('instance')
-        if instance:
-            kwargs['societe'] = instance.societe.nom
-        return kwargs
+    success_url = reverse_lazy('magasins') # Utilise reverse pour obtenir l'URL de succès
 
 
 class ProduitsListView(LoginRequiredMixin, ListView):
@@ -193,7 +187,7 @@ class ProduitUpdateView(UpdateView):
     model = Produit
     form_class = ProduitForm
     template_name = 'produit_update.html'
-    success_url = '/produits/'
+    success_url = reverse_lazy('produits')
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()

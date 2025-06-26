@@ -1,18 +1,6 @@
-import os
-import sys
-import django
-from django.conf import settings
-
 import pytest
-from django.contrib.auth.handlers.modwsgi import groups_for_user
 from django.contrib.auth.models import Group
-
-from accounts.models import JadUser, Societe, Magasin, Produit, Stock, Mouvements
-
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'DocString_PortFolio.settings')
-django.setup()
+from accounts.models import JadUser
 
 
 @pytest.fixture

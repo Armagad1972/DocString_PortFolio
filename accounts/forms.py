@@ -23,19 +23,13 @@ class SocieteForm(forms.ModelForm):
 class MagasinForm(forms.ModelForm):
     class Meta:
         model = Magasin
-        fields = ['nom', 'adresse', 'ville', 'pays', 'societe', 'users']
+        fields = ['nom', 'adresse', 'ville', 'pays', 'users']
         widgets = {
             'pays': forms.Select(attrs={
                 'class': 'form-control',
             }),
-            # 'societe': forms.Select(attrs={'class': 'form-control'}),
             'users': forms.SelectMultiple(attrs={'class': 'form-control'}),
         }
-
-    def __init__(self, societe, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.fields["societe"].queryset = Societe.objects.filter(nom=societe)
-        self.fields["societe"].disabled = True
 
 
 class ProduitForm(forms.ModelForm):
